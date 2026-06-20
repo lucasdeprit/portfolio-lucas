@@ -1,5 +1,5 @@
 ---
-import "../../styles/global.css";
+import BaseLayout from "../../layouts/BaseLayout.astro";
 
 export function getStaticPaths() {
   const posts = {
@@ -33,49 +33,12 @@ export function getStaticPaths() {
 }
 
 const post = Astro.props;
+const title = `${post.title} | Work In Progress`;
+const description = `${post.title} is a work-in-progress research note by Lucas Deprit.`;
+const canonical = `https://lucasdeprit.dev/posts/${Astro.params.slug}/`;
 ---
 
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="color-scheme" content="light dark" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-
-    <title>{post.title} | Work In Progress</title>
-
-    <meta
-      name="description"
-      content={`${post.title} is a work-in-progress research note by Lucas Deprit.`}
-    />
-
-    <script is:inline>
-      (() => {
-        const storageKey = "theme";
-        const root = document.documentElement;
-        const savedTheme = (() => {
-          try {
-            return localStorage.getItem(storageKey);
-          } catch {
-            return null;
-          }
-        })();
-
-        if (savedTheme === "light" || savedTheme === "dark") {
-          root.dataset.theme = savedTheme;
-        }
-      })();
-    </script>
-
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:wght@400;500;600&display=swap"
-      rel="stylesheet"
-    />
-  </head>
-
-  <body>
+<BaseLayout title={title} description={description} canonical={canonical}>
     <main class="mx-auto grid min-h-screen max-w-[1600px] p-9 max-[1000px]:p-4">
       <article class="grid min-h-[calc(100vh-72px)] border-2 border-[var(--line)] bg-[var(--paper)] shadow-[0_24px_70px_var(--shadow)] [animation:document-enter_480ms_ease-out_both] max-[1000px]:min-h-[calc(100vh-32px)]">
         <header class="grid grid-cols-[160px_1fr] border-b-2 border-[var(--line)] max-[1000px]:grid-cols-1">
@@ -155,5 +118,4 @@ const post = Astro.props;
         </section>
       </article>
     </main>
-  </body>
-</html>
+</BaseLayout>

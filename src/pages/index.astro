@@ -1,48 +1,13 @@
 ---
-import "../styles/global.css";
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const title = "Lucas Deprit | Software Engineer";
+const description =
+  "Software Engineer focused on iOS, Backend Systems, AI Tooling and Agentic Development.";
+const canonical = "https://lucasdeprit.dev/";
 ---
 
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-    <title>Lucas Deprit | Software Engineer</title>
-
-    <meta
-      name="description"
-      content="Software Engineer focused on iOS, Backend Systems, AI Tooling and Agentic Development."
-    />
-    <meta name="color-scheme" content="light dark" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-
-    <script is:inline>
-      (() => {
-        const storageKey = "theme";
-        const root = document.documentElement;
-        const savedTheme = (() => {
-          try {
-            return localStorage.getItem(storageKey);
-          } catch {
-            return null;
-          }
-        })();
-
-        if (savedTheme === "light" || savedTheme === "dark") {
-          root.dataset.theme = savedTheme;
-        }
-      })();
-    </script>
-
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:wght@400;500;600&display=swap"
-      rel="stylesheet"
-    />
-  </head>
-
-  <body>
+<BaseLayout title={title} description={description} canonical={canonical}>
     <main class="mx-auto min-h-screen max-w-[1600px] p-9 max-[1000px]:p-4">
       <article class="relative grid min-h-[calc(100vh-72px)] w-full grid-cols-[270px_1fr] border-2 border-[var(--line)] bg-[var(--paper)] shadow-[0_24px_70px_var(--shadow)] [animation:document-enter_480ms_ease-out_both] max-[1000px]:min-h-[calc(100vh-32px)] max-[1000px]:grid-cols-1">
 
@@ -531,5 +496,4 @@ import "../styles/global.css";
         });
       });
     </script>
-  </body>
-</html>
+</BaseLayout>
