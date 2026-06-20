@@ -1,0 +1,532 @@
+---
+import "../styles/global.css";
+---
+
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Lucas Deprit | Software Engineer</title>
+
+    <meta
+      name="description"
+      content="Software Engineer focused on iOS, Backend Systems, AI Tooling and Agentic Development."
+    />
+    <meta name="color-scheme" content="light dark" />
+
+    <script is:inline>
+      (() => {
+        const storageKey = "theme";
+        const root = document.documentElement;
+        const savedTheme = (() => {
+          try {
+            return localStorage.getItem(storageKey);
+          } catch {
+            return null;
+          }
+        })();
+
+        if (savedTheme === "light" || savedTheme === "dark") {
+          root.dataset.theme = savedTheme;
+        }
+      })();
+    </script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+
+  <body>
+    <main class="mx-auto min-h-screen max-w-[1600px] p-9 max-[1000px]:p-4">
+      <article class="relative grid min-h-[calc(100vh-72px)] w-full grid-cols-[270px_1fr] border-2 border-[var(--line)] bg-[var(--paper)] shadow-[0_24px_70px_var(--shadow)] [animation:document-enter_480ms_ease-out_both] max-[1000px]:min-h-[calc(100vh-32px)] max-[1000px]:grid-cols-1">
+
+        <aside class="grid grid-rows-[270px_1fr_90px] border-r-2 border-[var(--line)] max-[1000px]:hidden">
+          <div class="border-b-2 border-[var(--line)] p-8">
+            <div class="text-[13px] leading-[1.7] tracking-[0.08em] uppercase">
+              Developer<br />
+              Portfolio
+            </div>
+
+            <div class="relative mt-[22px] [font-family:var(--font-display)] text-[170px] leading-[0.82] tracking-[-0.06em] text-[var(--ink)] after:absolute after:bottom-[-20px] after:left-2 after:h-[7px] after:w-[52px] after:bg-[var(--accent)] after:content-['']">01</div>
+          </div>
+
+          <nav class="px-8 py-[34px]">
+            <div class="mb-7 text-[13px] uppercase">Index</div>
+
+            <a href="#overview" class="grid grid-cols-[38px_1fr] gap-2.5 border-b border-dotted border-[var(--soft-line)] py-[13px] text-xs uppercase transition-[background,padding-left,color] duration-180 ease-in-out hover:bg-[var(--accent-soft)] hover:pl-2.5">
+              <span>01</span>
+              <span>Overview</span>
+            </a>
+
+            <a href="#stack" class="grid grid-cols-[38px_1fr] gap-2.5 border-b border-dotted border-[var(--soft-line)] py-[13px] text-xs uppercase transition-[background,padding-left,color] duration-180 ease-in-out hover:bg-[var(--accent-soft)] hover:pl-2.5">
+              <span>02</span>
+              <span>Core Stack</span>
+            </a>
+
+            <a href="#projects" class="grid grid-cols-[38px_1fr] gap-2.5 border-b border-dotted border-[var(--soft-line)] py-[13px] text-xs uppercase transition-[background,padding-left,color] duration-180 ease-in-out hover:bg-[var(--accent-soft)] hover:pl-2.5">
+              <span>03</span>
+              <span>Projects</span>
+            </a>
+
+            <a href="#posts" class="grid grid-cols-[38px_1fr] gap-2.5 border-b border-dotted border-[var(--soft-line)] py-[13px] text-xs uppercase transition-[background,padding-left,color] duration-180 ease-in-out hover:bg-[var(--accent-soft)] hover:pl-2.5">
+              <span>04</span>
+              <span>Posts</span>
+            </a>
+
+            <a href="#contact" class="grid grid-cols-[38px_1fr] gap-2.5 border-b border-dotted border-[var(--soft-line)] py-[13px] text-xs uppercase transition-[background,padding-left,color] duration-180 ease-in-out hover:bg-[var(--accent-soft)] hover:pl-2.5">
+              <span>05</span>
+              <span>Contact</span>
+            </a>
+
+            <a
+              href="https://www.linkedin.com/in/lucas-deprit/"
+              target="_blank"
+              rel="noreferrer"
+              class="group mt-8 grid w-full border border-[var(--line)] bg-[var(--accent-soft)] p-1 transition-[background,transform,box-shadow] duration-180 hover:-translate-y-px hover:bg-[var(--accent-soft)] hover:shadow-[4px_4px_0_var(--offset-shadow)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--accent)]"
+              aria-label="Open Lucas Deprit on LinkedIn"
+            >
+              <img
+                src="/lucas-profile.png"
+                alt="Lucas Deprit"
+                width="1158"
+                height="1125"
+                class="block h-[214px] w-full object-cover object-[50%_12%] opacity-75 grayscale saturate-50 transition-[opacity,filter] duration-180 group-hover:opacity-95 group-hover:grayscale-0 group-hover:saturate-90"
+                loading="eager"
+                decoding="async"
+              />
+              <span class="border-t border-[var(--line)] px-1.5 py-1 text-[9px] tracking-[0.08em] text-[var(--muted)] uppercase">
+                LinkedIn / 01
+              </span>
+            </a>
+
+            <div
+              class="interactive-dot-grid mt-8 h-[280px] bg-[length:14px_14px] opacity-28"
+              data-dot-grid
+            ></div>
+          </nav>
+
+          <div class="flex items-center border-t-2 border-[var(--line)] px-8 text-xs uppercase">
+            Internal Document
+          </div>
+        </aside>
+
+        <section class="grid grid-rows-[auto_auto_1fr_auto]">
+
+          <header class="border-b-2 border-[var(--line)] bg-[var(--paper)] px-8 pt-[34px] pb-[38px]">
+
+            <div class="mb-[38px] grid grid-cols-[1fr_1fr_1.4fr_auto] gap-8 max-[1000px]:grid-cols-1">
+              <div class="text-[13px] leading-[1.8] uppercase">
+                <span class="mb-1 block text-[var(--muted)]">Project</span>
+                Lucas Deprit
+              </div>
+
+              <div class="text-[13px] leading-[1.8] uppercase">
+                <span class="mb-1 block text-[var(--muted)]">Document Type</span>
+                Personal Portfolio
+              </div>
+
+              <div class="text-[13px] leading-[1.8] uppercase">
+                <span class="mb-1 block text-[var(--muted)]">Focus</span>
+                Mobile · Backend · Agentic Systems
+              </div>
+
+              <button
+                type="button"
+                data-theme-toggle
+                class="group cursor-pointer appearance-none self-start border border-[var(--line)] bg-transparent px-3 py-2 text-left text-[11px] leading-[1.6] uppercase transition-[background,transform,box-shadow] duration-180 hover:-translate-y-px hover:bg-[var(--accent-soft)] hover:shadow-[4px_4px_0_var(--offset-shadow)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--accent)]"
+                aria-label="Activate dark mode"
+                aria-pressed="false"
+              >
+                <span class="block text-[var(--muted)]">Theme</span>
+                <span data-theme-toggle-label>Light</span>
+              </button>
+            </div>
+
+            <h1 class="relative m-0 max-w-[1000px] [font-family:var(--font-display)] text-[clamp(68px,7.4vw,128px)] leading-[0.87] tracking-[-0.035em] after:mt-[22px] after:block after:h-[9px] after:w-24 after:bg-[var(--accent)] after:content-[''] max-[1000px]:text-[72px]">
+              SOFTWARE<br />
+              ENGINEER
+            </h1>
+
+            <p class="mt-[26px] max-w-[780px] text-[15px] leading-[1.8] uppercase">
+              Hi, I'm Lucas. I build mobile products, backend tools and the
+              occasional side project that probably started simpler than it ended.
+            </p>
+
+          </header>
+
+          <div class="grid grid-cols-5 border-b-2 border-[var(--line)] max-[1000px]:grid-cols-1">
+
+            <div class="border-r border-[var(--line)] px-6 py-[18px] text-[13px] leading-[1.8] uppercase transition-colors duration-180 hover:bg-[var(--accent-soft)] max-[1000px]:border-r-0 max-[1000px]:border-b">
+              <strong class="block text-[11px] font-normal text-[var(--muted)]">Status</strong>
+              Available
+            </div>
+
+            <div class="border-r border-[var(--line)] px-6 py-[18px] text-[13px] leading-[1.8] uppercase transition-colors duration-180 hover:bg-[var(--accent-soft)] max-[1000px]:border-r-0 max-[1000px]:border-b">
+              <strong class="block text-[11px] font-normal text-[var(--muted)]">Role</strong>
+              Software Engineer
+            </div>
+
+            <div class="border-r border-[var(--line)] px-6 py-[18px] text-[13px] leading-[1.8] uppercase transition-colors duration-180 hover:bg-[var(--accent-soft)] max-[1000px]:border-r-0 max-[1000px]:border-b">
+              <strong class="block text-[11px] font-normal text-[var(--muted)]">Location</strong>
+              Madrid, Spain
+            </div>
+
+            <div class="border-r border-[var(--line)] px-6 py-[18px] text-[13px] leading-[1.8] uppercase transition-colors duration-180 hover:bg-[var(--accent-soft)] max-[1000px]:border-r-0 max-[1000px]:border-b">
+              <strong class="block text-[11px] font-normal text-[var(--muted)]">Experience</strong>
+              Swift / Backend
+            </div>
+
+            <div class="px-6 py-[18px] text-[13px] leading-[1.8] uppercase transition-colors duration-180 hover:bg-[var(--accent-soft)] max-[1000px]:border-b">
+              <strong class="block text-[11px] font-normal text-[var(--muted)]">Version</strong>
+              June 2026
+            </div>
+
+          </div>
+
+          <div class="px-8 py-[42px]">
+
+            <section id="overview" class="mb-[58px] [animation:fade-up_linear_both] [animation-range:entry_0%_cover_22%] [animation-timeline:view()]">
+
+              <div class="mb-7 flex items-baseline gap-[22px] border-b-[1.5px] border-[var(--line)] pb-3">
+                <span class="[font-family:var(--font-display)] text-[44px] text-[var(--accent)]">01</span>
+                <span class="[font-family:var(--font-display)] text-[40px] tracking-[0.02em] uppercase">Overview</span>
+                <span class="ml-auto h-1.5 w-7 bg-[var(--accent)]"></span>
+              </div>
+
+              <div class="max-w-[900px] text-[15px] leading-[1.8]">
+                <p>
+                  I'm a software engineer specialized in mobile development,
+                  with a strong interest in building useful products, clean
+                  architectures and tools that make development feel smoother.
+                </p>
+
+                <p>
+                  My curiosity usually jumps across the stack: one week it is a
+                  mobile app, the next a backend service, a homelab automation,
+                  a developer tool or an experiment with AI agents.
+                </p>
+
+                <p>
+                  This site collects projects, experiments, ideas and a few
+                  things I have learned while building along the way.
+                </p>
+              </div>
+
+            </section>
+
+            <section id="stack" class="mb-[58px] [animation:fade-up_linear_both] [animation-range:entry_0%_cover_22%] [animation-timeline:view()]">
+
+              <div class="mb-7 flex items-baseline gap-[22px] border-b-[1.5px] border-[var(--line)] pb-3">
+                <span class="[font-family:var(--font-display)] text-[44px] text-[var(--accent)]">02</span>
+                <span class="[font-family:var(--font-display)] text-[40px] tracking-[0.02em] uppercase">Core Stack</span>
+                <span class="ml-auto h-1.5 w-7 bg-[var(--accent)]"></span>
+              </div>
+
+              <div class="grid grid-cols-4 border-[1.5px] border-[var(--line)] max-[1000px]:grid-cols-1">
+
+                <div class="min-h-[150px] border-r border-b border-[var(--line)] p-[22px] transition-[background,transform,box-shadow] duration-220 hover:-translate-y-0.5 hover:bg-[var(--accent-soft)] hover:shadow-[6px_6px_0_var(--offset-shadow)]">
+                  <h3 class="m-0 mb-3.5 text-[13px] uppercase">Mobile</h3>
+
+                  <p class="m-0 text-xs leading-[1.7] text-[var(--muted)]">
+                    Swift, SwiftUI, Flutter, BLoC,
+                    modular architecture.
+                  </p>
+                </div>
+
+                <div class="min-h-[150px] border-r border-b border-[var(--line)] p-[22px] transition-[background,transform,box-shadow] duration-220 hover:-translate-y-0.5 hover:bg-[var(--accent-soft)] hover:shadow-[6px_6px_0_var(--offset-shadow)]">
+                  <h3 class="m-0 mb-3.5 text-[13px] uppercase">Backend</h3>
+
+                  <p class="m-0 text-xs leading-[1.7] text-[var(--muted)]">
+                    Go, Node.js, FastAPI,
+                    PostgreSQL, REST APIs.
+                  </p>
+                </div>
+
+                <div class="min-h-[150px] border-r border-b border-[var(--line)] p-[22px] transition-[background,transform,box-shadow] duration-220 hover:-translate-y-0.5 hover:bg-[var(--accent-soft)] hover:shadow-[6px_6px_0_var(--offset-shadow)]">
+                  <h3 class="m-0 mb-3.5 text-[13px] uppercase">Architecture</h3>
+
+                  <p class="m-0 text-xs leading-[1.7] text-[var(--muted)]">
+                    MVVM, Dependency Injection,
+                    Domain Driven Design,
+                    Clean Architecture.
+                  </p>
+                </div>
+
+                <div class="min-h-[150px] border-b border-[var(--line)] bg-[linear-gradient(180deg,var(--accent-soft),transparent_78%)] p-[22px] transition-[background,transform,box-shadow] duration-220 hover:-translate-y-0.5 hover:bg-[var(--accent-soft)] hover:shadow-[6px_6px_0_var(--offset-shadow)]">
+                  <h3 class="m-0 mb-3.5 text-[13px] uppercase">Agentic Systems</h3>
+
+                  <p class="m-0 text-xs leading-[1.7] text-[var(--muted)]">
+                    Spec Driven Development,
+                    Coding Agents,
+                    Developer Tooling.
+                  </p>
+                </div>
+
+              </div>
+
+            </section>
+
+            <section id="projects" class="mb-[58px] [animation:fade-up_linear_both] [animation-range:entry_0%_cover_22%] [animation-timeline:view()]">
+
+              <div class="mb-7 flex items-baseline gap-[22px] border-b-[1.5px] border-[var(--line)] pb-3">
+                <span class="[font-family:var(--font-display)] text-[44px] text-[var(--accent)]">03</span>
+                <span class="[font-family:var(--font-display)] text-[40px] tracking-[0.02em] uppercase">Featured Projects</span>
+                <span class="ml-auto h-1.5 w-7 bg-[var(--accent)]"></span>
+              </div>
+
+              <div class="grid gap-[18px]">
+
+                <a href="https://github.com/lucasdeprit/spec-forge" target="_blank" rel="noreferrer" class="grid min-h-[120px] grid-cols-[120px_1fr_180px] border-[1.5px] border-[var(--line)] transition-[background,transform,box-shadow] duration-220 hover:translate-x-2 hover:bg-[var(--accent-soft)] hover:shadow-[6px_6px_0_var(--offset-shadow)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--accent)] max-[1000px]:grid-cols-1">
+
+                  <div class="border-r border-[var(--line)] p-5 [font-family:var(--font-display)] text-[72px] max-[1000px]:border-r-0 max-[1000px]:border-b">01</div>
+
+                  <div class="p-[22px]">
+                    <h3 class="m-0 mb-2.5 [font-family:var(--font-display)] text-[34px] uppercase">Spec-Forge</h3>
+
+                    <p class="m-0 text-[13px] leading-[1.7] text-[var(--muted)]">
+                      CLI-first Specification Driven Development workspace for
+                      humans and AI agents across multiple repositories.
+                    </p>
+                  </div>
+
+                  <div class="border-l border-[var(--line)] p-[22px] text-[11px] leading-[1.9] uppercase max-[1000px]:border-l-0 max-[1000px]:border-r-0 max-[1000px]:border-b">
+                    Type: Dev Tool<br />
+                    Stack: Go / HTML<br />
+                    Status: WIP
+                  </div>
+
+                </a>
+
+                <a href="https://github.com/lucasdeprit/Injector" target="_blank" rel="noreferrer" class="grid min-h-[120px] grid-cols-[120px_1fr_180px] border-[1.5px] border-[var(--line)] transition-[background,transform,box-shadow] duration-220 hover:translate-x-2 hover:bg-[var(--accent-soft)] hover:shadow-[6px_6px_0_var(--offset-shadow)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--accent)] max-[1000px]:grid-cols-1">
+
+                  <div class="border-r border-[var(--line)] p-5 [font-family:var(--font-display)] text-[72px] max-[1000px]:border-r-0 max-[1000px]:border-b">02</div>
+
+                  <div class="p-[22px]">
+                    <h3 class="m-0 mb-2.5 [font-family:var(--font-display)] text-[34px] uppercase">Injector</h3>
+
+                    <p class="m-0 text-[13px] leading-[1.7] text-[var(--muted)]">
+                      Lightweight dependency injection framework for Swift,
+                      supporting singleton, transient and named registrations.
+                    </p>
+                  </div>
+
+                  <div class="border-l border-[var(--line)] p-[22px] text-[11px] leading-[1.9] uppercase max-[1000px]:border-l-0 max-[1000px]:border-r-0 max-[1000px]:border-b">
+                    Type: Library<br />
+                    Stack: Swift / SPM<br />
+                    Status: Pre-Release
+                  </div>
+
+                </a>
+
+                <a href="https://github.com/lucasdeprit/SwiftUI_AI_PDFReader" target="_blank" rel="noreferrer" class="grid min-h-[120px] grid-cols-[120px_1fr_180px] border-[1.5px] border-[var(--line)] transition-[background,transform,box-shadow] duration-220 hover:translate-x-2 hover:bg-[var(--accent-soft)] hover:shadow-[6px_6px_0_var(--offset-shadow)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--accent)] max-[1000px]:grid-cols-1">
+
+                  <div class="border-r border-[var(--line)] p-5 [font-family:var(--font-display)] text-[72px] max-[1000px]:border-r-0 max-[1000px]:border-b">03</div>
+
+                  <div class="p-[22px]">
+                    <h3 class="m-0 mb-2.5 [font-family:var(--font-display)] text-[34px] uppercase">PDF AI Reader</h3>
+
+                    <p class="m-0 text-[13px] leading-[1.7] text-[var(--muted)]">
+                      SwiftUI research prototype exploring Apple Foundation
+                      Models for on-device PDF analysis, OCR, search and Q&A.
+                    </p>
+                  </div>
+
+                  <div class="border-l border-[var(--line)] p-[22px] text-[11px] leading-[1.9] uppercase max-[1000px]:border-l-0 max-[1000px]:border-r-0 max-[1000px]:border-b">
+                    Type: Research<br />
+                    Stack: SwiftUI / AI<br />
+                    Status: Experimental
+                  </div>
+
+                </a>
+
+              </div>
+
+            </section>
+
+            <section id="posts" class="mb-[58px] [animation:fade-up_linear_both] [animation-range:entry_0%_cover_22%] [animation-timeline:view()]">
+
+              <div class="mb-7 flex items-baseline gap-[22px] border-b-[1.5px] border-[var(--line)] pb-3">
+                <span class="[font-family:var(--font-display)] text-[44px] text-[var(--accent)]">04</span>
+                <span class="[font-family:var(--font-display)] text-[40px] tracking-[0.02em] uppercase">Research Notes</span>
+                <span class="ml-auto h-1.5 w-7 bg-[var(--accent)]"></span>
+              </div>
+
+              <div class="grid gap-3">
+
+                <a
+                  href="/posts/specforge-agent-workflows"
+                  class="group grid grid-cols-[90px_1fr_150px] items-center border-b border-dotted border-[var(--soft-line)] py-[18px] transition-[background,padding-left] duration-180 hover:bg-[var(--accent-soft)] hover:pl-3 max-[1000px]:grid-cols-1"
+                >
+                  <span class="[font-family:var(--font-display)] text-[38px] transition-transform duration-180 group-hover:translate-x-[6px]">001</span>
+
+                  <span class="text-[15px] uppercase">
+                    SpecForge And Agent-Ready Specifications
+                  </span>
+
+                  <span class="text-right text-xs text-[var(--muted)] max-[1000px]:mt-2 max-[1000px]:text-left">
+                    Idea / WIP
+                  </span>
+                </a>
+
+                <a
+                  href="/posts/swift-dependency-injection"
+                  class="group grid grid-cols-[90px_1fr_150px] items-center border-b border-dotted border-[var(--soft-line)] py-[18px] transition-[background,padding-left] duration-180 hover:bg-[var(--accent-soft)] hover:pl-3 max-[1000px]:grid-cols-1"
+                >
+                  <span class="[font-family:var(--font-display)] text-[38px] transition-transform duration-180 group-hover:translate-x-[6px]">002</span>
+
+                  <span class="text-[15px] uppercase">
+                    Dependency Injection Patterns In Swift
+                  </span>
+
+                  <span class="text-right text-xs text-[var(--muted)] max-[1000px]:mt-2 max-[1000px]:text-left">
+                    Idea / WIP
+                  </span>
+                </a>
+
+                <a
+                  href="/posts/on-device-foundation-models"
+                  class="group grid grid-cols-[90px_1fr_150px] items-center border-b border-dotted border-[var(--soft-line)] py-[18px] transition-[background,padding-left] duration-180 hover:bg-[var(--accent-soft)] hover:pl-3 max-[1000px]:grid-cols-1"
+                >
+                  <span class="[font-family:var(--font-display)] text-[38px] transition-transform duration-180 group-hover:translate-x-[6px]">003</span>
+
+                  <span class="text-[15px] uppercase">
+                    On-Device AI With Apple Foundation Models
+                  </span>
+
+                  <span class="text-right text-xs text-[var(--muted)] max-[1000px]:mt-2 max-[1000px]:text-left">
+                    Idea / WIP
+                  </span>
+                </a>
+
+              </div>
+
+            </section>
+
+          </div>
+
+          <footer id="contact" class="grid min-h-[90px] grid-cols-[90px_1fr_1fr_1fr] border-t-2 border-[var(--line)] max-[1000px]:grid-cols-1">
+
+            <div class="grid border-r border-[var(--line)] bg-[var(--ink)] text-[var(--paper)] max-[1000px]:border-r-0 max-[1000px]:border-b">
+              <a
+                href="mailto:lucasdeprit@gmail.com"
+                class="group flex items-center justify-center px-6 py-[18px] text-[40px] leading-none transition-colors duration-180 hover:bg-[var(--accent)] hover:text-[var(--ink)] focus-visible:outline-2 focus-visible:outline-offset-[-6px] focus-visible:outline-[var(--accent)]"
+                aria-label="Send email to Lucas Deprit"
+              >
+                <span class="transition-transform duration-180 group-hover:-translate-y-1 group-hover:translate-x-1">↗</span>
+              </a>
+            </div>
+
+            <div class="flex flex-col justify-center border-r border-[var(--line)] px-6 py-0 text-[11px] leading-[1.7] uppercase max-[1000px]:min-h-[90px] max-[1000px]:border-r-0 max-[1000px]:border-b">
+              <span class="mb-1 block text-[var(--muted)]">Contact</span>
+              <a
+                href="mailto:lucasdeprit@gmail.com"
+                class="transition-colors duration-180 hover:text-[var(--accent)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--accent)]"
+              >
+                lucasdeprit@gmail.com
+              </a>
+            </div>
+
+            <div class="flex flex-col justify-center border-r border-[var(--line)] px-6 py-0 text-[11px] leading-[1.7] uppercase max-[1000px]:min-h-[90px] max-[1000px]:border-r-0 max-[1000px]:border-b">
+              <span class="mb-1 block text-[var(--muted)]">LinkedIn</span>
+              <a
+                href="https://www.linkedin.com/in/lucas-deprit/"
+                target="_blank"
+                rel="noreferrer"
+                class="transition-colors duration-180 hover:text-[var(--accent)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--accent)]"
+              >
+                lucas-deprit
+              </a>
+            </div>
+
+            <div class="flex flex-col justify-center px-6 py-0 text-[11px] leading-[1.7] uppercase max-[1000px]:min-h-[90px] max-[1000px]:border-b">
+              <span class="mb-1 block text-[var(--muted)]">Location</span>
+              Madrid, Spain<br />
+              Available / 2026
+            </div>
+
+          </footer>
+
+        </section>
+
+      </article>
+    </main>
+
+    <script>
+      const storageKey = "theme";
+      const root = document.documentElement;
+      const toggle = document.querySelector("[data-theme-toggle]");
+      const label = document.querySelector("[data-theme-toggle-label]");
+      const systemTheme = window.matchMedia("(prefers-color-scheme: dark)");
+
+      const getSavedTheme = () => {
+        try {
+          return localStorage.getItem(storageKey);
+        } catch {
+          return null;
+        }
+      };
+
+      const saveTheme = (theme) => {
+        try {
+          localStorage.setItem(storageKey, theme);
+        } catch {
+          return;
+        }
+      };
+
+      const getTheme = () => {
+        if (root.dataset.theme === "light" || root.dataset.theme === "dark") {
+          return root.dataset.theme;
+        }
+
+        return systemTheme.matches ? "dark" : "light";
+      };
+
+      const updateToggle = () => {
+        const theme = getTheme();
+        const isDark = theme === "dark";
+
+        toggle?.setAttribute("aria-pressed", String(isDark));
+        toggle?.setAttribute(
+          "aria-label",
+          `Activate ${isDark ? "light" : "dark"} mode`,
+        );
+
+        if (label) {
+          label.textContent = isDark ? "Dark" : "Light";
+        }
+      };
+
+      toggle?.addEventListener("click", () => {
+        const nextTheme = getTheme() === "dark" ? "light" : "dark";
+        root.dataset.theme = nextTheme;
+        saveTheme(nextTheme);
+        updateToggle();
+      });
+
+      systemTheme.addEventListener("change", () => {
+        if (!getSavedTheme()) {
+          updateToggle();
+        }
+      });
+
+      updateToggle();
+
+      document.querySelectorAll("[data-dot-grid]").forEach((dotGrid) => {
+        dotGrid.addEventListener("pointermove", (event) => {
+          const rect = dotGrid.getBoundingClientRect();
+          const x = event.clientX - rect.left;
+          const y = event.clientY - rect.top;
+
+          dotGrid.style.setProperty("--dot-x", `${x}px`);
+          dotGrid.style.setProperty("--dot-y", `${y}px`);
+        });
+      });
+    </script>
+  </body>
+</html>

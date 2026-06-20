@@ -1,0 +1,158 @@
+---
+import "../../styles/global.css";
+
+export function getStaticPaths() {
+  const posts = {
+    "specforge-agent-workflows": {
+      number: "001",
+      title: "SpecForge And Agent-Ready Specifications",
+      topic: "Specification Driven Development",
+      description:
+        "Notes on structuring project knowledge so humans and AI agents can work from the same source of truth.",
+    },
+    "swift-dependency-injection": {
+      number: "002",
+      title: "Dependency Injection Patterns In Swift",
+      topic: "Swift Architecture",
+      description:
+        "A future write-up about lightweight dependency registration, resolution scopes and modular Swift codebases.",
+    },
+    "on-device-foundation-models": {
+      number: "003",
+      title: "On-Device AI With Apple Foundation Models",
+      topic: "Apple Intelligence Research",
+      description:
+        "Research notes around OCR, semantic search and Q&A over PDFs using SwiftUI, Vision and Foundation Models.",
+    },
+  };
+
+  return Object.entries(posts).map(([slug, post]) => ({
+    params: { slug },
+    props: post,
+  }));
+}
+
+const post = Astro.props;
+---
+
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="color-scheme" content="light dark" />
+
+    <title>{post.title} | Work In Progress</title>
+
+    <meta
+      name="description"
+      content={`${post.title} is a work-in-progress research note by Lucas Deprit.`}
+    />
+
+    <script is:inline>
+      (() => {
+        const storageKey = "theme";
+        const root = document.documentElement;
+        const savedTheme = (() => {
+          try {
+            return localStorage.getItem(storageKey);
+          } catch {
+            return null;
+          }
+        })();
+
+        if (savedTheme === "light" || savedTheme === "dark") {
+          root.dataset.theme = savedTheme;
+        }
+      })();
+    </script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+
+  <body>
+    <main class="mx-auto grid min-h-screen max-w-[1600px] p-9 max-[1000px]:p-4">
+      <article class="grid min-h-[calc(100vh-72px)] border-2 border-[var(--line)] bg-[var(--paper)] shadow-[0_24px_70px_var(--shadow)] [animation:document-enter_480ms_ease-out_both] max-[1000px]:min-h-[calc(100vh-32px)]">
+        <header class="grid grid-cols-[160px_1fr] border-b-2 border-[var(--line)] max-[1000px]:grid-cols-1">
+          <div class="border-r-2 border-[var(--line)] p-6 max-[1000px]:border-r-0 max-[1000px]:border-b-2">
+            <span class="block text-[11px] leading-[1.7] text-[var(--muted)] uppercase">Research Note</span>
+            <span class="[font-family:var(--font-display)] text-[72px] leading-[0.9] text-[var(--accent)]">
+              {post.number}
+            </span>
+          </div>
+
+          <div class="relative p-8 max-[1000px]:p-6">
+            <a
+              href="/#posts"
+              class="group absolute top-8 right-8 grid min-w-[132px] border border-[var(--line)] bg-[var(--accent-soft)] px-4 py-3 text-[11px] leading-[1.4] uppercase transition-[background,transform,box-shadow] duration-180 hover:-translate-y-px hover:bg-[var(--accent)] hover:text-[var(--ink)] hover:shadow-[4px_4px_0_var(--offset-shadow)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--accent)] max-[1000px]:static max-[1000px]:mb-6 max-[1000px]:w-fit"
+              aria-label="Back to portfolio posts"
+            >
+              <span class="mb-1 text-[var(--muted)] group-hover:text-[var(--ink)]">Return</span>
+              <span class="flex items-center gap-3">
+                <span class="text-[22px] leading-none transition-transform duration-180 group-hover:-translate-x-1">←</span>
+                Portfolio
+              </span>
+            </a>
+
+            <div class="mb-4 flex items-center gap-6 pr-[180px] text-[12px] leading-[1.7] uppercase max-[1000px]:pr-0">
+              <span class="text-[var(--muted)]">
+                Status: Work In Progress / {post.topic}
+              </span>
+            </div>
+
+            <h1 class="m-0 max-w-[920px] pr-[180px] [font-family:var(--font-display)] text-[clamp(64px,7vw,118px)] leading-[0.88] tracking-[-0.03em] uppercase max-[1000px]:pr-0">
+              {post.title}
+            </h1>
+          </div>
+        </header>
+
+        <section class="grid grid-cols-[1fr_280px] max-[1000px]:grid-cols-1">
+          <div class="p-8 max-[1000px]:p-6">
+            <div class="mb-8 flex items-baseline gap-[22px] border-b-[1.5px] border-[var(--line)] pb-3">
+              <span class="[font-family:var(--font-display)] text-[44px] text-[var(--accent)]">WIP</span>
+              <span class="[font-family:var(--font-display)] text-[40px] tracking-[0.02em] uppercase">Under Construction</span>
+              <span class="ml-auto h-1.5 w-7 bg-[var(--accent)]"></span>
+            </div>
+
+            <p class="m-0 max-w-[760px] text-[15px] leading-[1.8] uppercase">
+              {post.description}
+            </p>
+
+            <p class="mt-7 max-w-[760px] text-[13px] leading-[1.8] text-[var(--muted)] uppercase">
+              This note is not published yet. The topic is parked here as a public writing queue while the underlying work evolves.
+            </p>
+          </div>
+
+          <aside class="grid border-l-2 border-[var(--line)] max-[1000px]:border-l-0 max-[1000px]:border-t-2">
+            <div class="border-b border-[var(--line)] p-6 text-[11px] leading-[1.8] uppercase">
+              <span class="mb-1 block text-[var(--muted)]">Document State</span>
+              Draft<br />
+              Not Published
+            </div>
+
+            <div class="border-b border-[var(--line)] p-6 text-[11px] leading-[1.8] uppercase">
+              <span class="mb-1 block text-[var(--muted)]">Next Action</span>
+              Outline<br />
+              Examples<br />
+              Final Notes
+            </div>
+
+            <div class="p-6 text-[11px] leading-[1.8] uppercase">
+              <span class="mb-1 block text-[var(--muted)]">Return</span>
+              <a
+                href="/#posts"
+                class="transition-colors duration-180 hover:text-[var(--accent)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--accent)]"
+              >
+                Portfolio Index
+              </a>
+            </div>
+          </aside>
+        </section>
+      </article>
+    </main>
+  </body>
+</html>
