@@ -1,0 +1,67 @@
+---
+import "../styles/global.css";
+
+type Props = {
+  title: string;
+  description: string;
+  canonical: string;
+};
+
+const { title, description, canonical } = Astro.props;
+const personSchema = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: "Lucas Deprit",
+  url: "https://lucasdeprit.dev",
+  jobTitle: "Software Engineer",
+  email: "mailto:lucasdeprit@gmail.com",
+  sameAs: [
+    "https://github.com/lucasdeprit",
+    "https://www.linkedin.com/in/lucas-deprit/",
+  ],
+};
+---
+
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>{title}</title>
+
+    <meta name="description" content={description} />
+    <meta name="color-scheme" content="light dark" />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <script type="application/ld+json" set:html={JSON.stringify(personSchema)} />
+
+    <script is:inline>
+      (() => {
+        const storageKey = "theme";
+        const root = document.documentElement;
+        const savedTheme = (() => {
+          try {
+            return localStorage.getItem(storageKey);
+          } catch {
+            return null;
+          }
+        })();
+
+        if (savedTheme === "light" || savedTheme === "dark") {
+          root.dataset.theme = savedTheme;
+        }
+      })();
+    </script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+
+  <body>
+    <slot />
+  </body>
+</html>
