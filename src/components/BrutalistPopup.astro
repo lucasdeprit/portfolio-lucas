@@ -1,0 +1,154 @@
+---
+interface Props {
+  href: string;
+  status: string;
+  title: string;
+  meta?: string;
+  ariaLabel?: string;
+  durationMs?: number;
+  top?: string;
+  right?: string;
+}
+
+const {
+  href,
+  status,
+  title,
+  meta,
+  ariaLabel = title,
+  durationMs = 6200,
+  top = "22px",
+  right = "22px",
+} = Astro.props;
+
+const styleVars = `--popup-duration:${durationMs}ms;--popup-top:${top};--popup-right:${right};`;
+---
+
+<a href={href} class="brutalist-popup" aria-label={ariaLabel} style={styleVars}>
+  <span class="brutalist-popup__status">{status}</span>
+  <span class="brutalist-popup__title">{title}</span>
+  {meta && <span class="brutalist-popup__meta">{meta}</span>}
+</a>
+
+<style>
+  .brutalist-popup {
+    position: fixed;
+    top: var(--popup-top);
+    right: var(--popup-right);
+    z-index: 50;
+    display: grid;
+    width: min(300px, calc(100vw - 32px));
+    border: 2px solid var(--line);
+    background: var(--paper);
+    color: var(--ink);
+    box-shadow: 7px 7px 0 var(--ink);
+    padding: 14px 16px 13px;
+    text-transform: uppercase;
+    transform-origin: top right;
+    animation: brutalist-popup-life var(--popup-duration) both;
+  }
+
+  .brutalist-popup::before {
+    content: "";
+    position: absolute;
+    top: -8px;
+    left: 14px;
+    width: 42px;
+    height: 8px;
+    background: var(--accent);
+    border: 2px solid var(--line);
+    border-bottom: 0;
+    transform-origin: left center;
+    animation: brutalist-popup-tab 780ms ease-in-out 5;
+  }
+
+  .brutalist-popup__status {
+    margin-bottom: 8px;
+    color: var(--muted);
+    font-size: 10px;
+    letter-spacing: 0.08em;
+  }
+
+  .brutalist-popup__title {
+    font-family: var(--font-display);
+    font-size: 38px;
+    line-height: 0.9;
+  }
+
+  .brutalist-popup__meta {
+    margin-top: 8px;
+    border-top: 1px dotted var(--soft-line);
+    padding-top: 8px;
+    font-size: 11px;
+    line-height: 1.45;
+  }
+
+  .brutalist-popup:hover,
+  .brutalist-popup:focus-visible {
+    animation-play-state: paused;
+    background: var(--accent);
+    color: var(--ink);
+    outline: 2px solid var(--accent);
+    outline-offset: 4px;
+  }
+
+  .brutalist-popup:hover .brutalist-popup__status,
+  .brutalist-popup:focus-visible .brutalist-popup__status {
+    color: var(--ink);
+  }
+
+  @keyframes brutalist-popup-life {
+    0% {
+      transform: translate(14px, -10px) rotate(0.4deg) scale(0.96);
+      visibility: visible;
+      pointer-events: auto;
+    }
+
+    10%,
+    26% {
+      transform: translate(0, 0) rotate(0.4deg) scale(1);
+      visibility: visible;
+      pointer-events: auto;
+    }
+
+    18%,
+    34% {
+      transform: translate(0, 0) rotate(-0.4deg) scale(1.035);
+      visibility: visible;
+      pointer-events: auto;
+    }
+
+    82% {
+      transform: translate(0, 0) rotate(0deg) scale(1);
+      visibility: visible;
+      pointer-events: auto;
+    }
+
+    100% {
+      transform: translate(14px, -10px) rotate(0deg) scale(0.98);
+      visibility: hidden;
+      pointer-events: none;
+    }
+  }
+
+  @keyframes brutalist-popup-tab {
+    50% {
+      transform: scaleX(1.32);
+    }
+  }
+
+  @media (max-width: 720px) {
+    .brutalist-popup {
+      top: 12px;
+      right: 12px;
+      box-shadow: 5px 5px 0 var(--ink);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .brutalist-popup,
+    .brutalist-popup::before {
+      animation: none;
+    }
+  }
+</style>
