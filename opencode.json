@@ -1,0 +1,55 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "instructions": ["AGENTS.md", ".opencode/LOOPS.md"],
+  "skills": {
+    "paths": [".opencode/skills"]
+  },
+  "mcp": {
+    "playwright": {
+      "type": "local",
+      "command": ["npx", "-y", "@playwright/mcp"],
+      "enabled": true
+    }
+  },
+  "agent": {
+    "loop-architect": {
+      "description": "Designs bounded Maker-Checker loops for code changes and portfolio post knowledge work.",
+      "mode": "subagent",
+      "permission": {
+        "edit": "deny",
+        "bash": "ask"
+      }
+    },
+    "maker-checker": {
+      "description": "Executes bounded Maker-Checker iterations for general code changes and research-note/post content.",
+      "mode": "all",
+      "steps": 32,
+      "permission": {
+        "edit": "ask",
+        "bash": {
+          "*": "ask",
+          "npm run build": "allow",
+          "npm run dev": "ask",
+          "npm run preview": "ask",
+          "rm *": "deny",
+          "git reset *": "deny",
+          "git checkout *": "deny",
+          "git clean *": "deny",
+          "git push *": "deny"
+        }
+      }
+    }
+  },
+  "command": {
+    "goal-loop": {
+      "description": "Start a bounded Maker-Checker loop for code or post knowledge work.",
+      "agent": "maker-checker",
+      "template": "Use the high-fidelity-loop skill and follow .opencode/LOOPS.md. Convert the user's goal into a bounded Maker-Checker loop for this Astro portfolio. Prefer code verification with npm run build. When visual/UI quality matters and the Playwright MCP browser tools are available, run browser QA after build: open the relevant local route, inspect desktop and mobile layout, take screenshots if useful, and cite concrete visual findings. For post/knowledge work, verify sources, consistency with homepage post links, metadata in src/pages/posts/[slug].astro, canonical URLs, and the existing editorial voice. Stop at fidelity >= 9/10, after 8 iterations, after 30 minutes, or when blocked. User goal: $ARGUMENTS"
+    },
+    "review-post": {
+      "description": "Review and improve a portfolio post with prose, metadata, build, and visual QA.",
+      "agent": "maker-checker",
+      "template": "Use the high-fidelity-loop skill and follow .opencode/LOOPS.md. You are reviewing an existing portfolio article. Inputs may include a post slug and requested changes. If the slug or requested changes are missing or ambiguous, ask one concise question before editing. Then read src/data/posts.ts, locate the matching post metadata, and read the post body at src/posts/<slug>.astro if it exists. Review the article against the user's requested changes, the existing editorial voice, the Writing OS principles when provided in the conversation, metadata consistency, canonical route https://lucasdeprit.dev/posts/<slug>/, homepage listing from src/data/posts.ts, beginner readability, visual appeal, and non-generic prose. Make the smallest useful improvements. Run npm run build. When Playwright MCP browser tools are available, after a successful build open the relevant local route, inspect desktop and mobile layout, take screenshots if useful, and cite concrete visual findings. If browser tools are not available, state that limitation instead of claiming visual QA. Stop at fidelity >= 9/10, after 8 iterations, after 30 minutes, marginal returns, or blocked verification. Review request: $ARGUMENTS"
+    }
+  }
+}
