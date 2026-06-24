@@ -1,0 +1,263 @@
+<figure class="agent-loop-diagram">
+  <svg
+    viewBox="0 0 1000 1000"
+    role="img"
+    aria-label="Diagrama de un loop de agentes: la intención humana baja hacia plan, execute y check; el score decide stop o retry mediante feedback."
+  >
+
+    <defs>
+      <marker id="agent-arrow" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="10" markerHeight="10" orient="auto">
+        <path d="M1 1 L11 6 L1 11" fill="none" stroke="var(--diagram-ink)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" />
+      </marker>
+      <marker id="agent-arrow-small" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="8" markerHeight="8" orient="auto">
+        <path d="M1 1 L11 6 L1 11" fill="none" stroke="var(--diagram-ink)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+      </marker>
+      <marker id="agent-arrow-accent" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="7" markerHeight="7" orient="auto">
+        <path d="M1 1 L11 6 L1 11" fill="none" stroke="var(--diagram-accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+      </marker>
+      <marker id="agent-arrow-return" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="7" markerHeight="7" orient="auto">
+        <path d="M1 1 L11 6 L1 11" fill="none" stroke="var(--diagram-ink)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+      </marker>
+      <filter id="ink-soften">
+        <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" seed="7" result="noise" />
+        <feDisplacementMap in="SourceGraphic" in2="noise" scale="0.35" />
+      </filter>
+    </defs>
+
+    <rect width="1000" height="1000" fill="var(--diagram-paper)" />
+
+    <g class="corner-mark" stroke="var(--diagram-ink)" stroke-width="2.2">
+      <path d="M39 22 V57 M22 39 H57" />
+      <path d="M961 22 V57 M943 39 H978" />
+      <path d="M39 943 V978 M22 961 H57" />
+      <path d="M961 943 V978 M943 961 H978" />
+    </g>
+
+    <g fill="var(--diagram-accent)" opacity="0.9">
+      <g transform="translate(832 91)">
+        <circle cx="0" cy="0" r="1.5" /><circle cx="18" cy="0" r="1.5" /><circle cx="36" cy="0" r="1.5" /><circle cx="54" cy="0" r="1.5" /><circle cx="72" cy="0" r="1.5" /><circle cx="90" cy="0" r="1.5" />
+        <circle cx="0" cy="18" r="1.5" /><circle cx="18" cy="18" r="1.5" /><circle cx="36" cy="18" r="1.5" /><circle cx="54" cy="18" r="1.5" /><circle cx="72" cy="18" r="1.5" /><circle cx="90" cy="18" r="1.5" />
+        <circle cx="0" cy="36" r="1.5" /><circle cx="18" cy="36" r="1.5" /><circle cx="36" cy="36" r="1.5" /><circle cx="54" cy="36" r="1.5" /><circle cx="72" cy="36" r="1.5" /><circle cx="90" cy="36" r="1.5" />
+        <circle cx="0" cy="54" r="1.5" /><circle cx="18" cy="54" r="1.5" /><circle cx="36" cy="54" r="1.5" /><circle cx="54" cy="54" r="1.5" /><circle cx="72" cy="54" r="1.5" /><circle cx="90" cy="54" r="1.5" />
+      </g>
+      <g transform="translate(82 942)" stroke="var(--diagram-accent)" stroke-width="2.7" stroke-linecap="square">
+        <path d="M0 10 L12 -8" /><path d="M13 10 L25 -8" /><path d="M26 10 L38 -8" /><path d="M39 10 L51 -8" /><path d="M52 10 L64 -8" />
+      </g>
+    </g>
+
+    <g class="mono text" filter="url(#ink-soften)">
+      <text x="500" y="72" class="label-title" text-anchor="middle">HUMAN INTENT</text>
+      <text x="500" y="98" class="accent small" text-anchor="middle">objetivo + criterio</text>
+      <path class="line" d="M500 112 V158" marker-end="url(#agent-arrow-small)" />
+      <circle cx="500" cy="171" r="8" fill="var(--diagram-ink)" />
+
+      <path class="line loop-line" d="M303 286 C357 202 424 174 484 172" />
+      <path class="line loop-line" d="M518 173 C617 178 701 239 727 356" marker-end="url(#agent-arrow)" />
+      <path class="line loop-line" d="M727 374 C727 388 726 403 724 419" />
+      <path class="line loop-line" d="M648 561 C604 605 544 620 499 615 C447 610 397 590 358 562" marker-end="url(#agent-arrow)" />
+      <path class="line loop-line" d="M274 420 C271 386 275 342 294 299" marker-end="url(#agent-arrow)" />
+
+      <g text-anchor="middle">
+        <text x="500" y="235" class="step-number">01</text>
+        <text x="500" y="278" class="step-title">PLAN</text>
+        <path class="tiny-rule" d="M487 300 H513" />
+        <text x="500" y="328" class="body-copy">define check</text>
+        <text x="500" y="350" class="body-copy">y la prueba</text>
+      </g>
+
+      <g text-anchor="middle">
+        <text x="684" y="430" class="step-number">02</text>
+        <text x="684" y="469" class="step-title">EXECUTE</text>
+        <path class="tiny-rule" d="M671 491 H697" />
+        <text x="684" y="520" class="body-copy">ejecuta el</text>
+        <text x="684" y="542" class="body-copy">cambio mínimo</text>
+      </g>
+
+      <g text-anchor="middle">
+        <text x="316" y="430" class="step-number">03</text>
+        <text x="316" y="469" class="step-title">CHECK</text>
+        <path class="tiny-rule" d="M303 491 H329" />
+        <text x="316" y="520" class="body-copy">evalúa el resultado</text>
+        <text x="316" y="542" class="body-copy">y obtiene score</text>
+      </g>
+
+      <path class="line" d="M500 625 V650" />
+      <text x="500" y="669" class="score-label" text-anchor="middle">CONFIDENCE SCORE</text>
+      <text x="238" y="722" class="accent hint">escala 0-100</text>
+      <path class="hint-line" d="M350 716 H438" marker-end="url(#agent-arrow-accent)" />
+      <text x="500" y="732" class="score" text-anchor="middle">87</text>
+      <text x="552" y="729" class="score-denominator">/100</text>
+      <circle cx="500" cy="752" r="2.4" fill="var(--diagram-accent)" />
+      <path class="hint-line" d="M552 752 H516" marker-end="url(#agent-arrow-accent)" />
+      <text x="586" y="756" class="accent hint">umbral dinámico</text>
+
+      <path class="line" d="M500 770 V802" />
+      <path class="line" d="M330 802 H632" />
+      <path class="line" d="M330 802 V832" marker-end="url(#agent-arrow-small)" />
+      <text x="330" y="785" class="accent yesno" text-anchor="middle">YES</text>
+      <rect x="274" y="836" width="116" height="52" fill="var(--diagram-stop)" />
+      <text x="332" y="870" class="stop-text" text-anchor="middle">STOP</text>
+      <path class="tiny-rule accent-rule" d="M319 896 H345" />
+      <text x="332" y="916" class="body-copy" text-anchor="middle">criterio cumplido</text>
+      <text x="332" y="936" class="body-copy" text-anchor="middle">evidencia suficiente</text>
+
+      <path class="line" d="M632 802 V844 H742 V595" />
+      <path class="line" d="M742 595 V572" marker-end="url(#agent-arrow-return)" />
+      <text x="630" y="785" class="accent yesno" text-anchor="middle">NO</text>
+      <text x="766" y="710" class="feedback-title">FEEDBACK</text>
+      <text x="766" y="730" class="body-copy">retry</text>
+      <text x="777" y="750" class="body-copy">.</text>
+      <text x="777" y="766" class="body-copy">.</text>
+      <text x="777" y="782" class="body-copy">.</text>
+      <text x="777" y="798" class="body-copy">.</text>
+      <text x="777" y="814" class="body-copy">.</text>
+      <text x="777" y="830" class="body-copy">.</text>
+    </g>
+  </svg>
+</figure>
+
+<style>
+  .agent-loop-diagram {
+    --diagram-paper: #f4f1e8;
+    --diagram-ink: #111;
+    --diagram-accent: #82977b;
+    --diagram-stop: #050505;
+    width: min(100%, 760px);
+    aspect-ratio: 1 / 1;
+    margin: 0 auto;
+    border: 1.5px solid var(--diagram-ink);
+    background: var(--diagram-paper);
+    color: var(--diagram-ink);
+    overflow: hidden;
+    box-shadow: 8px 8px 0 var(--offset-shadow);
+  }
+
+  .agent-loop-diagram svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+
+  .agent-loop-diagram .mono {
+    font-family: var(--font-body, "IBM Plex Mono", monospace);
+  }
+
+  .agent-loop-diagram .text {
+    fill: var(--diagram-ink);
+  }
+
+  .agent-loop-diagram .label-title,
+  .agent-loop-diagram .score-label,
+  .agent-loop-diagram .feedback-title,
+  .agent-loop-diagram .yesno {
+    font-weight: 900;
+    letter-spacing: 0.05em;
+  }
+
+  .agent-loop-diagram .label-title {
+    font-size: 21px;
+  }
+
+  .agent-loop-diagram .small,
+  .agent-loop-diagram .body-copy,
+  .agent-loop-diagram .hint {
+    font-size: 15px;
+  }
+
+  .agent-loop-diagram .body-copy {
+    fill: var(--diagram-ink);
+  }
+
+  .agent-loop-diagram .accent {
+    fill: var(--diagram-accent);
+    color: var(--diagram-accent);
+  }
+
+  .agent-loop-diagram .line,
+  .agent-loop-diagram .tiny-rule {
+    fill: none;
+    stroke: var(--diagram-ink);
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .agent-loop-diagram .loop-line {
+    stroke-width: 2.4;
+  }
+
+  .agent-loop-diagram .hint-line,
+  .agent-loop-diagram .accent-rule {
+    fill: none;
+    stroke: var(--diagram-accent);
+    stroke-width: 1.4;
+    stroke-linecap: round;
+    stroke-dasharray: 2 3;
+  }
+
+  .agent-loop-diagram .step-number,
+  .agent-loop-diagram .score {
+    fill: var(--diagram-accent);
+    font-family: var(--font-display, "Arial Narrow", sans-serif);
+    font-weight: 900;
+  }
+
+  .agent-loop-diagram .step-number {
+    font-size: 38px;
+  }
+
+  .agent-loop-diagram .step-title,
+  .agent-loop-diagram .stop-text {
+    fill: var(--diagram-ink);
+    font-family: var(--font-display, "Arial Narrow", sans-serif);
+    font-size: 39px;
+    font-weight: 900;
+    letter-spacing: 0.02em;
+  }
+
+  .agent-loop-diagram .score {
+    font-size: 78px;
+  }
+
+  .agent-loop-diagram .score-denominator {
+    fill: var(--diagram-ink);
+    font-size: 16px;
+  }
+
+  .agent-loop-diagram .stop-text {
+    fill: var(--diagram-paper);
+    font-size: 28px;
+    letter-spacing: 0.08em;
+  }
+
+  .agent-loop-diagram .score-label,
+  .agent-loop-diagram .feedback-title {
+    font-size: 16px;
+  }
+
+  .agent-loop-diagram .yesno {
+    font-size: 14px;
+  }
+
+  @media (max-width: 620px) {
+    .agent-loop-diagram {
+      box-shadow: 5px 5px 0 var(--offset-shadow);
+    }
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :global(:root:not([data-theme])) .agent-loop-diagram {
+      --diagram-paper: #181b16;
+      --diagram-ink: #f1eee6;
+      --diagram-accent: #b7c7aa;
+      --diagram-stop: #f1eee6;
+    }
+  }
+
+  :global(:root[data-theme="dark"]) .agent-loop-diagram {
+    --diagram-paper: #181b16;
+    --diagram-ink: #f1eee6;
+    --diagram-accent: #b7c7aa;
+    --diagram-stop: #f1eee6;
+  }
+</style>
