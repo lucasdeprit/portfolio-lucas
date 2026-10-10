@@ -9,8 +9,12 @@
 - Preview the production output with `npm run preview` after a successful build.
 
 ## App Structure
-- This is a static Astro portfolio. Routes live in `src/pages/`: `/` is `src/pages/index.astro`, and `/posts/:slug` is `src/pages/posts/[slug].astro` via `getStaticPaths()`.
-- Post metadata is hard-coded in `src/pages/posts/[slug].astro`, while the homepage post links are hard-coded separately in `src/pages/index.astro`; when adding/renaming a post, update both places.
+- This is a static Astro portfolio with two languages: English (default, no prefix) and Spanish (`/es/`), via Astro's built-in `i18n` config.
+- Pages in `src/pages/` are thin wrappers: `index.astro` / `es/index.astro` render `src/views/HomeView.astro`, and `posts/[slug].astro` / `es/posts/[slug].astro` render `src/views/PostView.astro`. Edit the views, not the wrappers.
+- UI text lives in `src/i18n/en.ts` and `src/i18n/es.ts` (`es` is typed against `en`, so missing keys fail the build). Helpers (`getDictionary`, `localePath`, `alternates`) are in `src/i18n/index.ts`. Do not hardcode user-facing strings in views/components.
+- Post metadata (slug, number, per-language title/topic/description/label) lives only in `src/data/posts.ts`; the homepage list, popup and static paths all read from it. Article bodies are `src/posts/<lang>/<slug>.astro`; a post with no body in any language renders the "Under Construction" page, and one missing only the requested language falls back to another with a notice.
+- Language detection is client-side (inline script in `BaseLayout.astro`): first visit follows `navigator.languages`, the language switch saves `localStorage` key `lang`, and only default-language pages redirect (a direct `/es/` link is never bounced). Pages carry `hreflang` alternates.
+- The homepage popup (`BrutalistPopup.astro`) is shown once per visitor, tracked in `localStorage` as `popup-seen:<storageKey>`; it promotes `featuredPost` from `posts.ts`, so publishing a new featured post re-triggers it.
 - Shared document shell, SEO tags, JSON-LD person schema, fonts, and the early theme-init script are in `src/layouts/BaseLayout.astro`.
 - Global styling is in `src/styles/global.css`; Tailwind v4 is wired through `@tailwindcss/vite` in `astro.config.mjs`, with no `tailwind.config.*` file.
 
@@ -20,7 +24,7 @@
 - Do not edit `.astro/` or `dist/`; both are generated and ignored by git.
 
 ## UI Gotchas
-- Theme state uses `document.documentElement.dataset.theme` and `localStorage` key `theme`; the initial read is in `BaseLayout.astro`, while the homepage toggle behavior is in `src/pages/index.astro`.
+- Theme state uses `document.documentElement.dataset.theme` and `localStorage` key `theme`; the initial read is in `BaseLayout.astro`, while the homepage toggle behavior is in `src/views/HomeView.astro`.
 - The design relies heavily on CSS variables from `global.css` and arbitrary Tailwind classes in Astro markup; preserve the existing editorial/brutalist visual language instead of introducing generic component styling.
 
 ## OpenCode Loops

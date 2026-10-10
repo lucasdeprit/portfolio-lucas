@@ -1,13 +1,16 @@
 ---
 import "../styles/global.css";
+import type { Lang } from "../i18n";
 
 type Props = {
   title: string;
   description: string;
   canonical: string;
+  lang: Lang;
+  alternates: Record<Lang, string>;
 };
 
-const { title, description, canonical } = Astro.props;
+const { title, description, canonical, lang, alternates } = Astro.props;
 const personSchema = {
   "@context": "https://schema.org",
   "@type": "Person",
@@ -22,7 +25,7 @@ const personSchema = {
 };
 ---
 
-<html lang="en">
+<html lang={lang}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -32,6 +35,10 @@ const personSchema = {
     <meta name="description" content={description} />
     <meta name="color-scheme" content="light dark" />
     <link rel="canonical" href={canonical} />
+    <link rel="alternate" hreflang="en" href={alternates.en} />
+    <link rel="alternate" hreflang="es" href={alternates.es} />
+    <link rel="alternate" hreflang="x-default" href={alternates.en} />
+    <meta property="og:locale" content={lang === "es" ? "es_ES" : "en_US"} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <script type="application/ld+json" set:html={JSON.stringify(personSchema)} />
 
@@ -50,6 +57,43 @@ const personSchema = {
         if (savedTheme === "light" || savedTheme === "dark") {
           root.dataset.theme = savedTheme;
         }
+      })();
+    </script>
+
+    <script is:inline>
+      (() => {
+        // Language: an explicit choice (saved by the switch) wins; otherwise
+        // follow the browser language. Only the default-language pages redirect,
+        // so a direct link to /es/ is never bounced away.
+        const supported = ["en", "es"];
+        const current = document.documentElement.lang;
+        let saved = null;
+
+        try {
+          saved = localStorage.getItem("lang");
+        } catch {}
+
+        const detected = (navigator.languages || [navigator.language])
+          .map((value) => String(value).slice(0, 2).toLowerCase())
+          .find((value) => supported.includes(value));
+        const target = supported.includes(saved) ? saved : detected;
+
+        if (current === "en" && target === "es") {
+          const alternate = document.querySelector('link[rel="alternate"][hreflang="es"]');
+          if (alternate) {
+            const url = new URL(alternate.href);
+            location.replace(url.pathname + location.search + location.hash);
+          }
+        }
+
+        document.addEventListener("click", (event) => {
+          const link = event.target instanceof Element ? event.target.closest("[data-lang-switch]") : null;
+          if (!link) return;
+
+          try {
+            localStorage.setItem("lang", link.dataset.langSwitch);
+          } catch {}
+        });
       })();
     </script>
 
