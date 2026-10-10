@@ -1,6 +1,7 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import BrutalistPopup from "../components/BrutalistPopup.astro";
+import { getHomeContent } from "../content";
 import { featuredPost, posts } from "../data/posts";
 import {
   absoluteUrl,
@@ -17,6 +18,7 @@ interface Props {
 
 const { lang } = Astro.props;
 const t = getDictionary(lang);
+const home = await getHomeContent(lang);
 const switchTo = otherLang(lang);
 const pageAlternates = alternates("/");
 ---
@@ -122,12 +124,12 @@ const pageAlternates = alternates("/");
 
               <div class="text-[13px] leading-[1.8] uppercase">
                 <span class="mb-1 block text-[var(--muted)]">{t.header.documentType}</span>
-                {t.header.documentTypeValue}
+                {home.documentType}
               </div>
 
               <div class="text-[13px] leading-[1.8] uppercase">
                 <span class="mb-1 block text-[var(--muted)]">{t.header.focus}</span>
-                {t.header.focusValue}
+                {home.focus}
               </div>
 
               <div class="flex items-start gap-3">
@@ -161,12 +163,12 @@ const pageAlternates = alternates("/");
             </div>
 
             <h1 class="relative m-0 max-w-[1000px] [font-family:var(--font-display)] text-[clamp(68px,7.4vw,128px)] leading-[0.87] tracking-[-0.035em] after:mt-[22px] after:block after:h-[9px] after:w-24 after:bg-[var(--accent)] after:content-[''] max-[1000px]:text-[72px]">
-              {t.header.titleLine1}<br />
-              {t.header.titleLine2}
+              {home.headline[0]}<br />
+              {home.headline[1]}
             </h1>
 
             <p class="mt-[26px] max-w-[780px] text-[15px] leading-[1.8] uppercase">
-              {t.header.intro}
+              {home.intro}
             </p>
 
           </header>
@@ -175,27 +177,27 @@ const pageAlternates = alternates("/");
 
             <div class="border-r border-[var(--line)] px-6 py-[18px] text-[13px] leading-[1.8] uppercase transition-colors duration-180 hover:bg-[var(--accent-soft)] max-[1000px]:border-r-0 max-[1000px]:border-b">
               <strong class="block text-[11px] font-normal text-[var(--muted)]">{t.facts.status}</strong>
-              {t.facts.statusValue}
+              {home.facts.status}
             </div>
 
             <div class="border-r border-[var(--line)] px-6 py-[18px] text-[13px] leading-[1.8] uppercase transition-colors duration-180 hover:bg-[var(--accent-soft)] max-[1000px]:border-r-0 max-[1000px]:border-b">
               <strong class="block text-[11px] font-normal text-[var(--muted)]">{t.facts.role}</strong>
-              {t.facts.roleValue}
+              {home.facts.role}
             </div>
 
             <div class="border-r border-[var(--line)] px-6 py-[18px] text-[13px] leading-[1.8] uppercase transition-colors duration-180 hover:bg-[var(--accent-soft)] max-[1000px]:border-r-0 max-[1000px]:border-b">
               <strong class="block text-[11px] font-normal text-[var(--muted)]">{t.facts.location}</strong>
-              {t.facts.locationValue}
+              {home.facts.location}
             </div>
 
             <div class="border-r border-[var(--line)] px-6 py-[18px] text-[13px] leading-[1.8] uppercase transition-colors duration-180 hover:bg-[var(--accent-soft)] max-[1000px]:border-r-0 max-[1000px]:border-b">
               <strong class="block text-[11px] font-normal text-[var(--muted)]">{t.facts.experience}</strong>
-              {t.facts.experienceValue}
+              {home.facts.experience}
             </div>
 
             <div class="px-6 py-[18px] text-[13px] leading-[1.8] uppercase transition-colors duration-180 hover:bg-[var(--accent-soft)] max-[1000px]:border-b">
               <strong class="block text-[11px] font-normal text-[var(--muted)]">{t.facts.version}</strong>
-              {t.facts.versionValue}
+              {home.facts.version}
             </div>
 
           </div>
@@ -211,9 +213,9 @@ const pageAlternates = alternates("/");
               </div>
 
               <div class="max-w-[900px] text-[15px] leading-[1.8]">
-                <p>{t.overview.p1}</p>
-                <p>{t.overview.p2}</p>
-                <p>{t.overview.p3}</p>
+                {home.overview.map((paragraph) => (
+                  <p>{paragraph}</p>
+                ))}
               </div>
 
             </section>
@@ -227,39 +229,21 @@ const pageAlternates = alternates("/");
               </div>
 
               <div class="grid grid-cols-4 border-[1.5px] border-[var(--line)] max-[1000px]:grid-cols-1">
+                {home.stack.map((item, index) => (
+                  <div
+                    class={
+                      index === home.stack.length - 1
+                        ? "min-h-[150px] border-b border-[var(--line)] bg-[linear-gradient(180deg,var(--accent-soft),transparent_78%)] p-[22px] transition-[background,transform,box-shadow] duration-220 hover:-translate-y-0.5 hover:bg-[var(--accent-soft)] hover:shadow-[6px_6px_0_var(--offset-shadow)]"
+                        : "min-h-[150px] border-r border-b border-[var(--line)] p-[22px] transition-[background,transform,box-shadow] duration-220 hover:-translate-y-0.5 hover:bg-[var(--accent-soft)] hover:shadow-[6px_6px_0_var(--offset-shadow)]"
+                    }
+                  >
+                    <h3 class="m-0 mb-3.5 text-[13px] uppercase">{item.title}</h3>
 
-                <div class="min-h-[150px] border-r border-b border-[var(--line)] p-[22px] transition-[background,transform,box-shadow] duration-220 hover:-translate-y-0.5 hover:bg-[var(--accent-soft)] hover:shadow-[6px_6px_0_var(--offset-shadow)]">
-                  <h3 class="m-0 mb-3.5 text-[13px] uppercase">{t.stack.mobile}</h3>
-
-                  <p class="m-0 text-xs leading-[1.7] text-[var(--muted)]">
-                    {t.stack.mobileText}
-                  </p>
-                </div>
-
-                <div class="min-h-[150px] border-r border-b border-[var(--line)] p-[22px] transition-[background,transform,box-shadow] duration-220 hover:-translate-y-0.5 hover:bg-[var(--accent-soft)] hover:shadow-[6px_6px_0_var(--offset-shadow)]">
-                  <h3 class="m-0 mb-3.5 text-[13px] uppercase">{t.stack.backend}</h3>
-
-                  <p class="m-0 text-xs leading-[1.7] text-[var(--muted)]">
-                    {t.stack.backendText}
-                  </p>
-                </div>
-
-                <div class="min-h-[150px] border-r border-b border-[var(--line)] p-[22px] transition-[background,transform,box-shadow] duration-220 hover:-translate-y-0.5 hover:bg-[var(--accent-soft)] hover:shadow-[6px_6px_0_var(--offset-shadow)]">
-                  <h3 class="m-0 mb-3.5 text-[13px] uppercase">{t.stack.architecture}</h3>
-
-                  <p class="m-0 text-xs leading-[1.7] text-[var(--muted)]">
-                    {t.stack.architectureText}
-                  </p>
-                </div>
-
-                <div class="min-h-[150px] border-b border-[var(--line)] bg-[linear-gradient(180deg,var(--accent-soft),transparent_78%)] p-[22px] transition-[background,transform,box-shadow] duration-220 hover:-translate-y-0.5 hover:bg-[var(--accent-soft)] hover:shadow-[6px_6px_0_var(--offset-shadow)]">
-                  <h3 class="m-0 mb-3.5 text-[13px] uppercase">{t.stack.agentic}</h3>
-
-                  <p class="m-0 text-xs leading-[1.7] text-[var(--muted)]">
-                    {t.stack.agenticText}
-                  </p>
-                </div>
-
+                    <p class="m-0 text-xs leading-[1.7] text-[var(--muted)]">
+                      {item.text}
+                    </p>
+                  </div>
+                ))}
               </div>
 
             </section>
@@ -273,67 +257,27 @@ const pageAlternates = alternates("/");
               </div>
 
               <div class="grid gap-[18px]">
+                {home.projects.map((project, index) => (
+                  <a href={project.url} target="_blank" rel="noreferrer" class="grid min-h-[120px] grid-cols-[120px_1fr_180px] border-[1.5px] border-[var(--line)] transition-[background,transform,box-shadow] duration-220 hover:translate-x-2 hover:bg-[var(--accent-soft)] hover:shadow-[6px_6px_0_var(--offset-shadow)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--accent)] max-[1000px]:grid-cols-1">
 
-                <a href="https://github.com/lucasdeprit/spec-forge" target="_blank" rel="noreferrer" class="grid min-h-[120px] grid-cols-[120px_1fr_180px] border-[1.5px] border-[var(--line)] transition-[background,transform,box-shadow] duration-220 hover:translate-x-2 hover:bg-[var(--accent-soft)] hover:shadow-[6px_6px_0_var(--offset-shadow)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--accent)] max-[1000px]:grid-cols-1">
+                    <div class="border-r border-[var(--line)] p-5 [font-family:var(--font-display)] text-[72px] max-[1000px]:border-r-0 max-[1000px]:border-b">{String(index + 1).padStart(2, "0")}</div>
 
-                  <div class="border-r border-[var(--line)] p-5 [font-family:var(--font-display)] text-[72px] max-[1000px]:border-r-0 max-[1000px]:border-b">01</div>
+                    <div class="p-[22px]">
+                      <h3 class="m-0 mb-2.5 [font-family:var(--font-display)] text-[34px] uppercase">{project.name}</h3>
 
-                  <div class="p-[22px]">
-                    <h3 class="m-0 mb-2.5 [font-family:var(--font-display)] text-[34px] uppercase">Spec-Forge</h3>
+                      <p class="m-0 text-[13px] leading-[1.7] text-[var(--muted)]">
+                        {project.description}
+                      </p>
+                    </div>
 
-                    <p class="m-0 text-[13px] leading-[1.7] text-[var(--muted)]">
-                      {t.projects.specForge.description}
-                    </p>
-                  </div>
+                    <div class="border-l border-[var(--line)] p-[22px] text-[11px] leading-[1.9] uppercase max-[1000px]:border-l-0 max-[1000px]:border-r-0 max-[1000px]:border-b">
+                      {t.projects.type}: {project.type}<br />
+                      {t.projects.stack}: {project.stack}<br />
+                      {t.projects.status}: {project.status}
+                    </div>
 
-                  <div class="border-l border-[var(--line)] p-[22px] text-[11px] leading-[1.9] uppercase max-[1000px]:border-l-0 max-[1000px]:border-r-0 max-[1000px]:border-b">
-                    {t.projects.type}: {t.projects.specForge.type}<br />
-                    {t.projects.stack}: Go / HTML<br />
-                    {t.projects.status}: {t.projects.specForge.status}
-                  </div>
-
-                </a>
-
-                <a href="https://github.com/lucasdeprit/Injector" target="_blank" rel="noreferrer" class="grid min-h-[120px] grid-cols-[120px_1fr_180px] border-[1.5px] border-[var(--line)] transition-[background,transform,box-shadow] duration-220 hover:translate-x-2 hover:bg-[var(--accent-soft)] hover:shadow-[6px_6px_0_var(--offset-shadow)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--accent)] max-[1000px]:grid-cols-1">
-
-                  <div class="border-r border-[var(--line)] p-5 [font-family:var(--font-display)] text-[72px] max-[1000px]:border-r-0 max-[1000px]:border-b">02</div>
-
-                  <div class="p-[22px]">
-                    <h3 class="m-0 mb-2.5 [font-family:var(--font-display)] text-[34px] uppercase">Injector</h3>
-
-                    <p class="m-0 text-[13px] leading-[1.7] text-[var(--muted)]">
-                      {t.projects.injector.description}
-                    </p>
-                  </div>
-
-                  <div class="border-l border-[var(--line)] p-[22px] text-[11px] leading-[1.9] uppercase max-[1000px]:border-l-0 max-[1000px]:border-r-0 max-[1000px]:border-b">
-                    {t.projects.type}: {t.projects.injector.type}<br />
-                    {t.projects.stack}: Swift / SPM<br />
-                    {t.projects.status}: {t.projects.injector.status}
-                  </div>
-
-                </a>
-
-                <a href="https://github.com/lucasdeprit/SwiftUI_AI_PDFReader" target="_blank" rel="noreferrer" class="grid min-h-[120px] grid-cols-[120px_1fr_180px] border-[1.5px] border-[var(--line)] transition-[background,transform,box-shadow] duration-220 hover:translate-x-2 hover:bg-[var(--accent-soft)] hover:shadow-[6px_6px_0_var(--offset-shadow)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--accent)] max-[1000px]:grid-cols-1">
-
-                  <div class="border-r border-[var(--line)] p-5 [font-family:var(--font-display)] text-[72px] max-[1000px]:border-r-0 max-[1000px]:border-b">03</div>
-
-                  <div class="p-[22px]">
-                    <h3 class="m-0 mb-2.5 [font-family:var(--font-display)] text-[34px] uppercase">{t.projects.pdfReader.name}</h3>
-
-                    <p class="m-0 text-[13px] leading-[1.7] text-[var(--muted)]">
-                      {t.projects.pdfReader.description}
-                    </p>
-                  </div>
-
-                  <div class="border-l border-[var(--line)] p-[22px] text-[11px] leading-[1.9] uppercase max-[1000px]:border-l-0 max-[1000px]:border-r-0 max-[1000px]:border-b">
-                    {t.projects.type}: {t.projects.pdfReader.type}<br />
-                    {t.projects.stack}: SwiftUI / AI<br />
-                    {t.projects.status}: {t.projects.pdfReader.status}
-                  </div>
-
-                </a>
-
+                  </a>
+                ))}
               </div>
 
             </section>
@@ -406,8 +350,8 @@ const pageAlternates = alternates("/");
 
             <div class="flex flex-col justify-center px-6 py-0 text-[11px] leading-[1.7] uppercase max-[1000px]:min-h-[90px] max-[1000px]:border-b">
               <span class="mb-1 block text-[var(--muted)]">{t.footer.location}</span>
-              {t.facts.locationValue}<br />
-              {t.footer.availability}
+              {home.facts.location}<br />
+              {home.availability}
             </div>
 
           </footer>

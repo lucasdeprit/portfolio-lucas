@@ -31,13 +31,7 @@ export const en = {
   header: {
     project: "Project",
     documentType: "Document Type",
-    documentTypeValue: "Personal Portfolio",
     focus: "Focus",
-    focusValue: "Mobile · Backend · Agentic Systems",
-    titleLine1: "SOFTWARE",
-    titleLine2: "ENGINEER",
-    intro:
-      "Hi, I'm Lucas. I build mobile products, backend tools and the occasional side project that probably started simpler than it ended.",
   },
   controls: {
     theme: "Theme",
@@ -50,58 +44,22 @@ export const en = {
   },
   facts: {
     status: "Status",
-    statusValue: "Currently Employed",
     role: "Role",
-    roleValue: "Software Engineer",
     location: "Location",
-    locationValue: "Madrid, Spain",
     experience: "Experience",
-    experienceValue: "Digital Transformation",
     version: "Version",
-    versionValue: "June 2026",
   },
   overview: {
     heading: "Overview",
-    p1: "I'm a software engineer focused on digital transformation, with a strong interest in building useful products, clean architectures and tools that make teams work smoother. Mobile development is one of the areas where I have built deeper experience.",
-    p2: "My curiosity usually jumps across the stack: one week it is a mobile app, the next a backend service, a homelab automation, a developer tool or an experiment with AI agents.",
-    p3: "This site collects projects, experiments, ideas and a few things I have learned while building along the way.",
   },
   stack: {
     heading: "Core Stack",
-    mobile: "Mobile",
-    mobileText: "Swift, SwiftUI, Flutter, BLoC, modular architecture.",
-    backend: "Backend",
-    backendText: "Go, Node.js, FastAPI, PostgreSQL, REST APIs.",
-    architecture: "Architecture",
-    architectureText:
-      "MVVM, Dependency Injection, Domain Driven Design, Clean Architecture.",
-    agentic: "Agentic Systems",
-    agenticText: "Spec Driven Development, Coding Agents, Developer Tooling.",
   },
   projects: {
     heading: "Featured Projects",
     type: "Type",
     stack: "Stack",
     status: "Status",
-    specForge: {
-      description:
-        "CLI-first Specification Driven Development workspace for humans and AI agents across multiple repositories.",
-      type: "Dev Tool",
-      status: "WIP",
-    },
-    injector: {
-      description:
-        "Lightweight dependency injection framework for Swift, supporting singleton, transient and named registrations.",
-      type: "Library",
-      status: "Pre-Release",
-    },
-    pdfReader: {
-      name: "PDF AI Reader",
-      description:
-        "SwiftUI research prototype exploring Apple Foundation Models for on-device PDF analysis, OCR, search and Q&A.",
-      type: "Research",
-      status: "Experimental",
-    },
   },
   posts: {
     heading: "Research Notes",
@@ -111,7 +69,6 @@ export const en = {
     contact: "Contact",
     linkedin: "LinkedIn",
     location: "Location",
-    availability: "Available / 2026",
   },
   post: {
     researchNote: "Research Note",
