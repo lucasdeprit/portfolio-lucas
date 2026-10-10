@@ -2,6 +2,9 @@
 interface Props {
   href: string;
   storageKey: string;
+  /** Visibility window in ms since epoch; checked again in the browser because pages are cached. */
+  from?: number;
+  until?: number;
   status: string;
   title: string;
   meta?: string;
@@ -14,6 +17,8 @@ interface Props {
 const {
   href,
   storageKey,
+  from,
+  until,
   status,
   title,
   meta,
@@ -26,7 +31,7 @@ const {
 const styleVars = `--popup-duration:${durationMs}ms;--popup-top:${top};--popup-right:${right};`;
 ---
 
-<a href={href} class="brutalist-popup" aria-label={ariaLabel} style={styleVars} data-popup-key={storageKey} hidden>
+<a href={href} class="brutalist-popup" aria-label={ariaLabel} style={styleVars} data-popup-key={storageKey} data-popup-from={from} data-popup-until={until} hidden>
   <span class="brutalist-popup__status">{status}</span>
   <span class="brutalist-popup__title">{title}</span>
   {meta && <span class="brutalist-popup__meta">{meta}</span>}
@@ -36,6 +41,12 @@ const styleVars = `--popup-duration:${durationMs}ms;--popup-top:${top};--popup-r
   (() => {
     const popup = document.querySelector("[data-popup-key]");
     if (!popup) return;
+
+    // Outside its window the popup stays hidden and is not marked as seen.
+    const now = Date.now();
+    const from = Number(popup.dataset.popupFrom);
+    const until = Number(popup.dataset.popupUntil);
+    if ((popup.dataset.popupFrom && now < from) || (popup.dataset.popupUntil && now >= until)) return;
 
     const key = `popup-seen:${popup.dataset.popupKey}`;
     let seen = false;

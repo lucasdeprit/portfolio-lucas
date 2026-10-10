@@ -1,13 +1,11 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-import type { Post } from "../data/posts";
+import { getPostBody, type Post } from "../content/posts";
 import {
   absoluteUrl,
   alternates,
-  defaultLang,
   getDictionary,
   interpolate,
-  languages,
   localePath,
   otherLang,
   type Lang,
@@ -23,18 +21,12 @@ const t = getDictionary(lang);
 const switchTo = otherLang(lang);
 const text = post.text[lang];
 
-// Article bodies live in src/posts/<lang>/<slug>.astro. If one is missing for
-// this language, fall back to the first language that has it and say so.
-const postModules = import.meta.glob("../posts/*/*.astro", { eager: true }) as Record<
-  string,
-  { default: any }
->;
-const bodyLang = [lang, defaultLang, ...languages].find(
-  (candidate) => `../posts/${candidate}/${post.slug}.astro` in postModules,
-);
-const PostContent = bodyLang ? postModules[`../posts/${bodyLang}/${post.slug}.astro`].default : null;
-const hasPublishedContent = Boolean(PostContent);
-const isFallbackBody = hasPublishedContent && bodyLang !== lang;
+// Markdown from the content repo or a legacy component; if the body is missing
+// in this language another one is used and a notice is shown.
+const body = await getPostBody(post.slug, lang);
+const PostContent = body?.kind === "component" ? (body.component as any) : null;
+const hasPublishedContent = body !== null;
+const isFallbackBody = body !== null && body.lang !== lang;
 
 const title = hasPublishedContent
   ? interpolate(t.meta.postTitle, { title: text.title })
@@ -44,7 +36,7 @@ const description = hasPublishedContent
   : interpolate(t.meta.wipDescription, { title: text.title });
 const path = `/posts/${post.slug}/`;
 const pageAlternates = alternates(path);
-const status = post.status?.[lang];
+const status = post.statusLabel[lang];
 ---
 
 <BaseLayout
@@ -96,7 +88,9 @@ const status = post.status?.[lang];
                 {t.post.onlyInLanguage}
               </p>
             )}
-            {PostContent ? (
+            {body?.kind === "markdown" ? (
+              <div class="post-md" set:html={body.html} />
+            ) : PostContent ? (
               <PostContent />
             ) : (
               <>

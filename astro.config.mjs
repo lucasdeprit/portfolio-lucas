@@ -8,13 +8,17 @@ import vercel from "@astrojs/vercel";
 // refresh when `expiration` elapses.
 const isrBypassToken = process.env.ISR_BYPASS_TOKEN;
 
+// Seconds before a cached page is regenerated. Longer means fewer function runs
+// and GitHub reads, but content edits take that long to show up.
+const isrExpiration = Number(process.env.ISR_EXPIRATION) || 300;
+
 // https://astro.build/config
 export default defineConfig({
   site: "https://lucasdeprit.dev",
   output: "server",
   adapter: vercel({
     isr: {
-      expiration: 300,
+      expiration: isrExpiration,
       ...(isrBypassToken ? { bypassToken: isrBypassToken } : {}),
     },
   }),

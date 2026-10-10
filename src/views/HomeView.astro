@@ -2,7 +2,8 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import BrutalistPopup from "../components/BrutalistPopup.astro";
 import { getHomeContent } from "../content";
-import { featuredPost, posts } from "../data/posts";
+import { getPopup } from "../content/popup";
+import { getPublishedPosts } from "../content/posts";
 import {
   absoluteUrl,
   alternates,
@@ -18,7 +19,11 @@ interface Props {
 
 const { lang } = Astro.props;
 const t = getDictionary(lang);
-const home = await getHomeContent(lang);
+const [home, posts, popup] = await Promise.all([
+  getHomeContent(lang),
+  getPublishedPosts(),
+  getPopup(lang),
+]);
 const switchTo = otherLang(lang);
 const pageAlternates = alternates("/");
 ---
@@ -30,14 +35,18 @@ const pageAlternates = alternates("/");
   lang={lang}
   alternates={pageAlternates}
 >
-    <BrutalistPopup
-      href={localePath(lang, `/posts/${featuredPost.slug}/`)}
-      storageKey={featuredPost.slug}
-      status={t.popup.status}
-      title={t.popup.title}
-      meta={t.popup.meta}
-      ariaLabel={t.popup.ariaLabel}
-    />
+    {popup && (
+      <BrutalistPopup
+        href={popup.href}
+        storageKey={popup.storageKey}
+        from={popup.from}
+        until={popup.until}
+        status={popup.status}
+        title={popup.title}
+        meta={popup.meta}
+        ariaLabel={popup.ariaLabel}
+      />
+    )}
 
     <main class="mx-auto min-h-screen max-w-[1600px] p-9 max-[1000px]:p-4">
       <article class="relative grid min-h-[calc(100vh-72px)] w-full grid-cols-[270px_1fr] border-2 border-[var(--line)] bg-[var(--paper)] shadow-[0_24px_70px_var(--shadow)] max-[1000px]:min-h-[calc(100vh-32px)] max-[1000px]:grid-cols-1">

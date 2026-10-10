@@ -1,12 +1,13 @@
 import type { APIRoute } from "astro";
-import { posts } from "../data/posts";
+import { getPublishedPosts } from "../content/posts";
 import { alternates, languages } from "../i18n";
 
 export const prerender = false;
 
-const paths = ["/", ...posts.map((post) => `/posts/${post.slug}/`)];
+export const GET: APIRoute = async () => {
+  const posts = await getPublishedPosts();
+  const paths = ["/", ...posts.map((post) => `/posts/${post.slug}/`)];
 
-export const GET: APIRoute = () => {
   const urls = paths.flatMap((path) => {
     const pageAlternates = alternates(path);
     const links = languages
