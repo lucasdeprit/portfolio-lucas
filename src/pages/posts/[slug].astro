@@ -2,11 +2,13 @@
 import PostView from "../../views/PostView.astro";
 import { posts } from "../../data/posts";
 
-export function getStaticPaths() {
-  return posts.map((post) => ({ params: { slug: post.slug }, props: { post } }));
-}
+export const prerender = false;
 
-const { post } = Astro.props;
+const post = posts.find((candidate) => candidate.slug === Astro.params.slug);
+
+if (!post) {
+  return new Response(null, { status: 404 });
+}
 ---
 
 <PostView lang="en" post={post} />

@@ -6,10 +6,10 @@
 - Install with `npm ci` when reproducing the locked dependency graph.
 - Run the site with `npm run dev`; the Astro dev server defaults to `localhost:4321`.
 - Verify changes with `npm run build`. There are no lint, formatter, typecheck, or test scripts in `package.json`; `build` is the focused verification source of truth here.
-- Preview the production output with `npm run preview` after a successful build.
+- `npm run preview` does not work with the Vercel adapter; check behavior with `npm run dev` and confirm the build with `npm run build` (output goes to `.vercel/output`, git-ignored).
 
 ## App Structure
-- This is a static Astro portfolio with two languages: English (default, no prefix) and Spanish (`/es/`), via Astro's built-in `i18n` config.
+- This is an Astro portfolio deployed on Vercel (`output: "server"` + `@astrojs/vercel` with ISR, 5-minute `expiration`; set `ISR_BYPASS_TOKEN` (min. 32 chars) in Vercel to enable on-demand revalidation) with two languages: English (default, no prefix) and Spanish (`/es/`), via Astro's built-in `i18n` config.
 - Pages in `src/pages/` are thin wrappers: `index.astro` / `es/index.astro` render `src/views/HomeView.astro`, and `posts/[slug].astro` / `es/posts/[slug].astro` render `src/views/PostView.astro`. Edit the views, not the wrappers.
 - UI text lives in `src/i18n/en.ts` and `src/i18n/es.ts` (`es` is typed against `en`, so missing keys fail the build). Helpers (`getDictionary`, `localePath`, `alternates`) are in `src/i18n/index.ts`. Do not hardcode user-facing strings in views/components.
 - Post metadata (slug, number, per-language title/topic/description/label) lives only in `src/data/posts.ts`; the homepage list, popup and static paths all read from it. Article bodies are `src/posts/<lang>/<slug>.astro`; a post with no body in any language renders the "Under Construction" page, and one missing only the requested language falls back to another with a notice.
@@ -20,8 +20,8 @@
 
 ## SEO And Assets
 - The production site URL is `https://lucasdeprit.dev` in `astro.config.mjs`; keep page `canonical` values and `public/robots.txt` sitemap URL aligned with it.
-- `@astrojs/sitemap` writes sitemap files during `npm run build`; do not hand-edit generated files under `dist/`.
-- Do not edit `.astro/` or `dist/`; both are generated and ignored by git.
+- The sitemap is a dynamic route, `src/pages/sitemap.xml.ts`, built from `src/data/posts.ts` with `hreflang` alternates (`@astrojs/sitemap` is not used because it only sees prerendered routes). Home pages are `prerender = true`; post pages are on-demand (`prerender = false`) and cached by ISR.
+- Do not edit `.astro/`, `dist/` or `.vercel/`; all are generated and ignored by git.
 
 ## UI Gotchas
 - Theme state uses `document.documentElement.dataset.theme` and `localStorage` key `theme`; the initial read is in `BaseLayout.astro`, while the homepage toggle behavior is in `src/views/HomeView.astro`.
