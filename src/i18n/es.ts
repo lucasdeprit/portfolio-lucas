@@ -33,13 +33,7 @@ export const es: Dictionary = {
   header: {
     project: "Proyecto",
     documentType: "Tipo de documento",
-    documentTypeValue: "Portfolio personal",
     focus: "Enfoque",
-    focusValue: "Móvil · Backend · Sistemas agénticos",
-    titleLine1: "INGENIERO",
-    titleLine2: "DE SOFTWARE",
-    intro:
-      "Hola, soy Lucas. Construyo productos móviles, herramientas de backend y algún proyecto personal que probablemente empezó siendo más simple de lo que acabó.",
   },
   controls: {
     theme: "Tema",
@@ -52,59 +46,22 @@ export const es: Dictionary = {
   },
   facts: {
     status: "Estado",
-    statusValue: "En activo",
     role: "Rol",
-    roleValue: "Ingeniero de software",
     location: "Ubicación",
-    locationValue: "Madrid, España",
     experience: "Experiencia",
-    experienceValue: "Transformación digital",
     version: "Versión",
-    versionValue: "Junio 2026",
   },
   overview: {
     heading: "Resumen",
-    p1: "Soy ingeniero de software centrado en la transformación digital, con mucho interés en construir productos útiles, arquitecturas limpias y herramientas que hagan que los equipos trabajen mejor. El desarrollo móvil es una de las áreas en las que tengo más experiencia.",
-    p2: "Mi curiosidad suele saltar por todo el stack: una semana es una app móvil, la siguiente un servicio backend, una automatización de homelab, una herramienta para desarrolladores o un experimento con agentes de IA.",
-    p3: "Esta web reúne proyectos, experimentos, ideas y algunas cosas que he aprendido por el camino.",
   },
   stack: {
     heading: "Stack principal",
-    mobile: "Móvil",
-    mobileText: "Swift, SwiftUI, Flutter, BLoC, arquitectura modular.",
-    backend: "Backend",
-    backendText: "Go, Node.js, FastAPI, PostgreSQL, APIs REST.",
-    architecture: "Arquitectura",
-    architectureText:
-      "MVVM, inyección de dependencias, Domain Driven Design, Clean Architecture.",
-    agentic: "Sistemas agénticos",
-    agenticText:
-      "Desarrollo guiado por especificaciones, agentes de código, herramientas para desarrolladores.",
   },
   projects: {
     heading: "Proyectos destacados",
     type: "Tipo",
     stack: "Stack",
     status: "Estado",
-    specForge: {
-      description:
-        "Espacio de trabajo de desarrollo guiado por especificaciones, orientado a CLI, para personas y agentes de IA en varios repositorios.",
-      type: "Herramienta dev",
-      status: "En desarrollo",
-    },
-    injector: {
-      description:
-        "Framework ligero de inyección de dependencias para Swift, con registros singleton, transient y con nombre.",
-      type: "Librería",
-      status: "Pre-release",
-    },
-    pdfReader: {
-      name: "PDF AI Reader",
-      description:
-        "Prototipo de investigación en SwiftUI que explora Apple Foundation Models para analizar PDFs en el dispositivo: OCR, búsqueda y preguntas y respuestas.",
-      type: "Investigación",
-      status: "Experimental",
-    },
   },
   posts: {
     heading: "Notas de investigación",
@@ -114,7 +71,6 @@ export const es: Dictionary = {
     contact: "Contacto",
     linkedin: "LinkedIn",
     location: "Ubicación",
-    availability: "Disponible / 2026",
   },
   post: {
     researchNote: "Nota de investigación",
