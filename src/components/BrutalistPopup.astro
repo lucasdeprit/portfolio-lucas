@@ -1,6 +1,7 @@
 ---
 interface Props {
   href: string;
+  storageKey: string;
   status: string;
   title: string;
   meta?: string;
@@ -12,6 +13,7 @@ interface Props {
 
 const {
   href,
+  storageKey,
   status,
   title,
   meta,
@@ -24,13 +26,36 @@ const {
 const styleVars = `--popup-duration:${durationMs}ms;--popup-top:${top};--popup-right:${right};`;
 ---
 
-<a href={href} class="brutalist-popup" aria-label={ariaLabel} style={styleVars}>
+<a href={href} class="brutalist-popup" aria-label={ariaLabel} style={styleVars} data-popup-key={storageKey} hidden>
   <span class="brutalist-popup__status">{status}</span>
   <span class="brutalist-popup__title">{title}</span>
   {meta && <span class="brutalist-popup__meta">{meta}</span>}
 </a>
 
+<script is:inline>
+  (() => {
+    const popup = document.querySelector("[data-popup-key]");
+    if (!popup) return;
+
+    const key = `popup-seen:${popup.dataset.popupKey}`;
+    let seen = false;
+
+    try {
+      seen = localStorage.getItem(key) !== null;
+      if (!seen) localStorage.setItem(key, "1");
+    } catch {
+      seen = false;
+    }
+
+    if (!seen) popup.hidden = false;
+  })();
+</script>
+
 <style>
+  .brutalist-popup[hidden] {
+    display: none;
+  }
+
   .brutalist-popup {
     position: fixed;
     top: var(--popup-top);
