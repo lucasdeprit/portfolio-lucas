@@ -1,0 +1,164 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import type { Post } from "../data/posts";
+import {
+  absoluteUrl,
+  alternates,
+  defaultLang,
+  getDictionary,
+  interpolate,
+  languages,
+  localePath,
+  otherLang,
+  type Lang,
+} from "../i18n";
+
+interface Props {
+  lang: Lang;
+  post: Post;
+}
+
+const { lang, post } = Astro.props;
+const t = getDictionary(lang);
+const switchTo = otherLang(lang);
+const text = post.text[lang];
+
+// Article bodies live in src/posts/<lang>/<slug>.astro. If one is missing for
+// this language, fall back to the first language that has it and say so.
+const postModules = import.meta.glob("../posts/*/*.astro", { eager: true }) as Record<
+  string,
+  { default: any }
+>;
+const bodyLang = [lang, defaultLang, ...languages].find(
+  (candidate) => `../posts/${candidate}/${post.slug}.astro` in postModules,
+);
+const PostContent = bodyLang ? postModules[`../posts/${bodyLang}/${post.slug}.astro`].default : null;
+const hasPublishedContent = Boolean(PostContent);
+const isFallbackBody = hasPublishedContent && bodyLang !== lang;
+
+const title = hasPublishedContent
+  ? interpolate(t.meta.postTitle, { title: text.title })
+  : interpolate(t.meta.wipTitle, { title: text.title });
+const description = hasPublishedContent
+  ? text.description
+  : interpolate(t.meta.wipDescription, { title: text.title });
+const path = `/posts/${post.slug}/`;
+const pageAlternates = alternates(path);
+const status = post.status?.[lang];
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  canonical={absoluteUrl(localePath(lang, path))}
+  lang={lang}
+  alternates={pageAlternates}
+>
+    <main class="mx-auto grid min-h-screen max-w-[1600px] p-9 max-[1000px]:p-4">
+      <article class="grid min-h-[calc(100vh-72px)] border-2 border-[var(--line)] bg-[var(--paper)] shadow-[0_24px_70px_var(--shadow)] max-[1000px]:min-h-[calc(100vh-32px)]">
+        <header class="grid grid-cols-[160px_1fr] border-b-2 border-[var(--line)] max-[1000px]:grid-cols-1">
+          <div class="border-r-2 border-[var(--line)] p-6 max-[1000px]:border-r-0 max-[1000px]:border-b-2">
+            <span class="block text-[11px] leading-[1.7] text-[var(--muted)] uppercase">{t.post.researchNote}</span>
+            <span class="[font-family:var(--font-display)] text-[72px] leading-[0.9] text-[var(--accent)]">
+              {post.number}
+            </span>
+          </div>
+
+          <div class="relative p-8 max-[1000px]:p-6">
+            <a
+              href={`${localePath(lang, "/")}#posts`}
+              class="group absolute top-8 right-8 grid min-w-[132px] border border-[var(--line)] bg-[var(--accent-soft)] px-4 py-3 text-[11px] leading-[1.4] uppercase transition-[background,transform,box-shadow] duration-180 hover:-translate-y-px hover:bg-[var(--accent)] hover:text-[var(--ink)] hover:shadow-[4px_4px_0_var(--offset-shadow)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--accent)] max-[1000px]:static max-[1000px]:mb-6 max-[1000px]:w-fit"
+              aria-label={t.post.backAria}
+            >
+              <span class="mb-1 text-[var(--muted)] group-hover:text-[var(--ink)]">{t.post.returnLabel}</span>
+              <span class="flex items-center gap-3">
+                <span class="text-[22px] leading-none transition-transform duration-180 group-hover:-translate-x-1">←</span>
+                {t.post.portfolio}
+              </span>
+            </a>
+
+            <div class="mb-4 flex items-center gap-6 pr-[180px] text-[12px] leading-[1.7] uppercase max-[1000px]:pr-0">
+              <span class="text-[var(--muted)]">
+                {t.post.statusLabel}: {status ?? t.post.defaultStatus} / {text.topic}
+              </span>
+            </div>
+
+            <h1 class="m-0 max-w-[920px] pr-[180px] [font-family:var(--font-display)] text-[clamp(64px,7vw,118px)] leading-[0.88] tracking-[-0.03em] uppercase max-[1000px]:pr-0">
+              {text.title}
+            </h1>
+          </div>
+        </header>
+
+        <section class="grid grid-cols-[1fr_280px] max-[1000px]:grid-cols-1">
+          <div class="p-8 max-[1000px]:p-6">
+            {isFallbackBody && (
+              <p class="mb-8 border border-[var(--line)] bg-[var(--accent-soft)] px-4 py-3 text-[12px] uppercase">
+                {t.post.onlyInLanguage}
+              </p>
+            )}
+            {PostContent ? (
+              <PostContent />
+            ) : (
+              <>
+                <div class="mb-8 flex items-baseline gap-[22px] border-b-[1.5px] border-[var(--line)] pb-3">
+                  <span class="[font-family:var(--font-display)] text-[44px] text-[var(--accent)]">{t.post.wipTag}</span>
+                  <span class="[font-family:var(--font-display)] text-[40px] tracking-[0.02em] uppercase">{t.post.wipHeading}</span>
+                  <span class="ml-auto h-1.5 w-7 bg-[var(--accent)]"></span>
+                </div>
+
+                <p class="m-0 max-w-[760px] text-[15px] leading-[1.8] uppercase">
+                  {text.description}
+                </p>
+
+                <p class="mt-7 max-w-[760px] text-[13px] leading-[1.8] text-[var(--muted)] uppercase">
+                  {t.post.wipNotice}
+                </p>
+              </>
+            )}
+          </div>
+
+          <aside class="grid border-l-2 border-[var(--line)] max-[1000px]:border-l-0 max-[1000px]:border-t-2">
+            <div class="border-b border-[var(--line)] p-6 text-[11px] leading-[1.8] uppercase">
+              <span class="mb-1 block text-[var(--muted)]">{t.post.documentState}</span>
+              {status ?? t.post.draftStatus}<br />
+              {hasPublishedContent ? t.post.researchNote : t.post.notPublished}
+            </div>
+
+            <div class="border-b border-[var(--line)] p-6 text-[11px] leading-[1.8] uppercase">
+              <span class="mb-1 block text-[var(--muted)]">{hasPublishedContent ? t.post.documentFlow : t.post.nextAction}</span>
+              {(hasPublishedContent ? t.post.flowPublished : t.post.flowWip).map((step, index) => (
+                <>
+                  {index > 0 && <br />}
+                  {step}
+                </>
+              ))}
+            </div>
+
+            <div class="border-b border-[var(--line)] p-6 text-[11px] leading-[1.8] uppercase">
+              <span class="mb-1 block text-[var(--muted)]">{t.post.language}</span>
+              <a
+                href={localePath(switchTo, path)}
+                hreflang={switchTo}
+                lang={switchTo}
+                data-lang-switch={switchTo}
+                aria-label={t.controls.switchLanguage}
+                class="transition-colors duration-180 hover:text-[var(--accent)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--accent)]"
+              >
+                {lang.toUpperCase()} / {switchTo.toUpperCase()}
+              </a>
+            </div>
+
+            <div class="p-6 text-[11px] leading-[1.8] uppercase">
+              <span class="mb-1 block text-[var(--muted)]">{t.post.returnLabel}</span>
+              <a
+                href={`${localePath(lang, "/")}#posts`}
+                class="transition-colors duration-180 hover:text-[var(--accent)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--accent)]"
+              >
+                {t.post.portfolioIndex}
+              </a>
+            </div>
+          </aside>
+        </section>
+      </article>
+    </main>
+</BaseLayout>
