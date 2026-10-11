@@ -9,9 +9,7 @@ export const en = {
   },
   popup: {
     status: "New / Published",
-    title: "Agent Loops",
-    meta: "Turning attempts into results",
-    ariaLabel: "Read the new Agent Loops article",
+    ariaLabel: "Read the new article: {title}",
   },
   sidebar: {
     developer: "Developer",
@@ -70,6 +68,12 @@ export const en = {
     linkedin: "LinkedIn",
     location: "Location",
   },
+  notFound: {
+    code: "404",
+    title: "Page not found",
+    text: "This page does not exist or is no longer available.",
+    back: "Back to portfolio",
+  },
   post: {
     researchNote: "Research Note",
     statusLabel: "Status",
@@ -89,7 +93,7 @@ export const en = {
     wipHeading: "Under Construction",
     wipNotice:
       "This note is not published yet. The topic is parked here as a public writing queue while the underlying work evolves.",
-    onlyInLanguage: "This article is only available in Spanish.",
+    onlyInLanguage: "This article is not available in this language yet.",
     language: "Language",
   },
 };

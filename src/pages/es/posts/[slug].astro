@@ -1,13 +1,13 @@
 ---
 import PostView from "../../../views/PostView.astro";
-import { posts } from "../../../data/posts";
+import { getPost } from "../../../content/posts";
 
 export const prerender = false;
 
-const post = posts.find((candidate) => candidate.slug === Astro.params.slug);
+const post = await getPost(Astro.params.slug);
 
-if (!post) {
-  return new Response(null, { status: 404 });
+if (!post || post.status !== "published") {
+  return Astro.rewrite("/es/404");
 }
 ---
 

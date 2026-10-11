@@ -11,9 +11,7 @@ export const es: Dictionary = {
   },
   popup: {
     status: "Nuevo / Publicado",
-    title: "Agent Loops",
-    meta: "Convertir intentos en resultados",
-    ariaLabel: "Leer el nuevo artículo sobre Agent Loops",
+    ariaLabel: "Leer el nuevo artículo: {title}",
   },
   sidebar: {
     developer: "Portfolio",
@@ -72,6 +70,12 @@ export const es: Dictionary = {
     linkedin: "LinkedIn",
     location: "Ubicación",
   },
+  notFound: {
+    code: "404",
+    title: "Página no encontrada",
+    text: "Esta página no existe o ya no está disponible.",
+    back: "Volver al portfolio",
+  },
   post: {
     researchNote: "Nota de investigación",
     statusLabel: "Estado",
@@ -91,7 +95,7 @@ export const es: Dictionary = {
     wipHeading: "En construcción",
     wipNotice:
       "Esta nota aún no está publicada. El tema queda aquí como una cola de escritura pública mientras evoluciona el trabajo de fondo.",
-    onlyInLanguage: "Este artículo solo está disponible en español.",
+    onlyInLanguage: "Este artículo aún no está disponible en este idioma.",
     language: "Idioma",
   },
 };

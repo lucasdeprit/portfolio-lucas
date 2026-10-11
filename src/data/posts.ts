@@ -1,4 +1,5 @@
 import type { Lang } from "../i18n";
+import type { PostStatus } from "../content/schema";
 
 type PostText = {
   title: string;
@@ -10,15 +11,21 @@ type PostText = {
 export type Post = {
   slug: string;
   number: string;
-  status?: Record<Lang, string>;
+  status: PostStatus;
+  statusLabel: Partial<Record<Lang, string>>;
   text: Record<Lang, PostText>;
 };
 
-export const posts: Post[] = [
+/**
+ * Fallback used when the content repo is unreachable. Keep it in sync with
+ * `posts/<slug>/meta.json` in the content repo.
+ */
+export const postDefaults: Post[] = [
   {
     slug: "agent-loops-opencode",
     number: "001",
-    status: { en: "Published", es: "Publicado" },
+    status: "published",
+    statusLabel: { en: "Published", es: "Publicado" },
     text: {
       en: {
         title: "Agent Loops: turning attempts into results",
@@ -39,6 +46,8 @@ export const posts: Post[] = [
   {
     slug: "specforge-agent-workflows",
     number: "002",
+    status: "published",
+    statusLabel: {},
     text: {
       en: {
         title: "SpecForge And Agent-Ready Specifications",
@@ -59,6 +68,8 @@ export const posts: Post[] = [
   {
     slug: "swift-dependency-injection",
     number: "003",
+    status: "published",
+    statusLabel: {},
     text: {
       en: {
         title: "Dependency Injection Patterns In Swift",
@@ -79,6 +90,8 @@ export const posts: Post[] = [
   {
     slug: "on-device-foundation-models",
     number: "004",
+    status: "published",
+    statusLabel: {},
     text: {
       en: {
         title: "On-Device AI With Apple Foundation Models",
@@ -97,6 +110,3 @@ export const posts: Post[] = [
     },
   },
 ];
-
-/** The most recent published post is the one the homepage popup promotes. */
-export const featuredPost = posts[0];
